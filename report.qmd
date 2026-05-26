@@ -1,0 +1,18 @@
+---
+title: "Your Project Title"
+author: 
+  - "Alex Delamer"
+  - "Duc Hoang"
+  - "Aatish Prasad"
+  - "Kishori Akola"
+date: today
+format: 
+  html:
+    toc: true
+    number-sections: true
+  pdf:
+    toc: true
+    numeber-section: true
+---
+
+## Test

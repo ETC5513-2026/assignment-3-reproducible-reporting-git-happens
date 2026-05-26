@@ -2,8 +2,9 @@
 
 Group Members:
 
-*
-*
-*
+* Alex Delamer
+* Duc Hoang
+* Aatish Prasad
+* Kishori Akola
 
 Topic: 
