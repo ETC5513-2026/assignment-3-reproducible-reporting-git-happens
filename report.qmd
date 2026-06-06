@@ -12,7 +12,15 @@ format:
     number-sections: true
   pdf:
     toc: true
-    numeber-section: true
+    number-section: true
+bibliography: references.bib
+execute:
+  echo: false
+  output: true
+  warning: false
+  message: false
 ---
 
 ## Test
+
+@ramos_e-commerce_nodate
