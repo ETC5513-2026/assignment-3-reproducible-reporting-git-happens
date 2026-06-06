@@ -30,18 +30,19 @@ library(tidyverse)
 library(lubridate)
 library(janitor)
 library(knitr)
+library(stringr)
+library(ggplot2)
 ```
 
 ```{r}
 ## Data Loading
-sales_data <- read_csv("data/sales_transaction_dataset.csv")
+sales_data <- read_csv("data/Sales Transaction v.4a.csv")
 
 glimpse(sales_data)
 
 ```
 ```{r}
 ## Data Cleaning
-
 sales_clean <- sales_data |>
   clean_names() |>
   mutate(
@@ -61,14 +62,6 @@ sales_clean <- sales_data |>
 
 
 ```{r}
-#Cancelled dataset
-cancelled_orders <- sales_clean |>
-  filter(transaction_type == "Cancelled/Return")
-```
-
-
-
-```{r}
 #Checking the percentage of the UK and Non UK countries on the basis of transaction number
 transaction_percentage <- sales_clean |>
   mutate(
@@ -85,6 +78,48 @@ transaction_percentage <- sales_clean |>
   )
 
 transaction_percentage
+```
+
+
+```{r}
+# Clean transaction id
+sales_clean <- sales_clean |> 
+  mutate(
+  transaction_no = str_remove(transaction_no, "^C")
+) |> 
+  group_by(transaction_no) |> 
+  ungroup()
+
+# Distinct transactions
+dist_trans <- sales_clean |> 
+  distinct(transaction_no, .keep_all = TRUE)
+```
+
+
+
+
+```{r}
+#| label: fig-UK_line
+#| fig-cap: Number of UK Transactions by Month
+# Count of transactions over time in UK
+dist_trans |>
+  filter(country == "United Kingdom") |>
+  count(year_month) |>
+  ggplot(aes(year_month, n)) +
+  geom_line() +
+  geom_point() +
+  scale_x_date(
+    date_breaks = "1 month",
+    date_labels = "%b %Y"
+  ) +
+  labs(
+    x = "Month",
+    y = "Transactions"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1)
+  )
 ```
 
 
