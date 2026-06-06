@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.31">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -14,6 +14,9 @@
 
 <title>Your Project Title</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -29,7 +32,6 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -51,15 +53,18 @@ div.csl-indent {
 <script src="report_files/libs/clipboard/clipboard.min.js"></script>
 <script src="report_files/libs/quarto-html/quarto.js" type="module"></script>
 <script src="report_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="report_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="report_files/libs/quarto-html/popper.min.js"></script>
 <script src="report_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="report_files/libs/quarto-html/anchor.min.js"></script>
 <link href="report_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="report_files/libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="report_files/libs/quarto-html/quarto-syntax-highlighting-7c69b197886ae2a34062761d21e44731.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="report_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="report_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="report_files/libs/bootstrap/bootstrap-9e3ffae467580fdb927a41352e75a2e0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="report_files/libs/bootstrap/bootstrap-efbb37e9afcc02144ebbc7afd12a776f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="report_files/libs/kePrint-0.0.1/kePrint.js"></script>
+
+<link href="report_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
 
 
 </head>
@@ -73,6 +78,13 @@ div.csl-indent {
    
   <ul>
   <li><a href="#test" id="toc-test" class="nav-link active" data-scroll-target="#test"><span class="header-section-number">1</span> Test</a></li>
+  <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology"><span class="header-section-number">2</span> Methodology</a>
+  <ul class="collapse">
+  <li><a href="#data-collection-and-sources" id="toc-data-collection-and-sources" class="nav-link" data-scroll-target="#data-collection-and-sources"><span class="header-section-number">2.1</span> Data Collection and Sources</a></li>
+  <li><a href="#about-the-dataset" id="toc-about-the-dataset" class="nav-link" data-scroll-target="#about-the-dataset"><span class="header-section-number">2.2</span> About the Dataset</a></li>
+  <li><a href="#research-design-and-purpose" id="toc-research-design-and-purpose" class="nav-link" data-scroll-target="#research-design-and-purpose"><span class="header-section-number">2.3</span> Research Design and Purpose</a></li>
+  <li><a href="#overview---descriptive-analysis" id="toc-overview---descriptive-analysis" class="nav-link" data-scroll-target="#overview---descriptive-analysis"><span class="header-section-number">2.4</span> Overview - Descriptive Analysis</a></li>
+  </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="report.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
@@ -115,12 +127,155 @@ div.csl-indent {
 <section id="test" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="test"><span class="header-section-number">1</span> Test</h2>
 <p><span class="citation" data-cites="ramos_e-commerce_nodate">Ramos (<a href="#ref-ramos_e-commerce_nodate" role="doc-biblioref">n.d.</a>)</span></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 536,350
+Columns: 8
+$ TransactionNo &lt;chr&gt; "581482", "581475", "581475", "581475", "581475", "58147…
+$ Date          &lt;chr&gt; "12/9/2019", "12/9/2019", "12/9/2019", "12/9/2019", "12/…
+$ ProductNo     &lt;chr&gt; "22485", "22596", "23235", "23272", "23239", "21705", "2…
+$ ProductName   &lt;chr&gt; "Set Of 2 Wooden Market Crates", "Christmas Star Wish Li…
+$ Price         &lt;dbl&gt; 21.47, 10.65, 11.53, 10.65, 11.94, 10.65, 11.53, 12.25, …
+$ Quantity      &lt;dbl&gt; 12, 36, 12, 12, 6, 24, 18, 12, 12, 24, 20, 12, 20, 12, 1…
+$ CustomerNo    &lt;dbl&gt; 17490, 13069, 13069, 13069, 13069, 13069, 13069, 13069, …
+$ Country       &lt;chr&gt; "United Kingdom", "United Kingdom", "United Kingdom", "U…</code></pre>
+</div>
+</div>
+</section>
+<section id="methodology" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="methodology"><span class="header-section-number">2</span> Methodology</h2>
+<section id="data-collection-and-sources" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="data-collection-and-sources"><span class="header-section-number">2.1</span> Data Collection and Sources</h3>
+<p>This report utilizes secondary data sourced from <em>Kaggle</em>, a prominent open-source data repository. The dataset comprises one year of historical sales transactions from Dec 2018 to Dec 2019 from a UK-based online retailer. This organize headquartered in London, specializing in gifts and homewares for both adults and children.</p>
+<p>The business operates on a global scale and serves a dual customer base. Operations include <strong>both direct-to-consumer (B2C) sales</strong>, where individuals purchase for personal use, <strong>and business-to-business (B2B) transactions</strong>, where small businesses purchase items in bulk for retail distribution. Consequently, the transaction data is expected to exhibit diverse purchasing patterns, reflecting both individual consumer behavior and wholesale buying cycles.</p>
+<p>Structurally, the dataset contains <strong>536,350 observations</strong> and <strong>8 variables</strong>. The data grain is each record represent a specific product and its associated quantity within a distinct transaction.</p>
+</section>
+<section id="about-the-dataset" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="about-the-dataset"><span class="header-section-number">2.2</span> About the Dataset</h3>
+<p>To ensure data integrity and facilitate robust analysis, the raw dataset underwent a systematic cleaning and transformation process. Initially, variable names were standardized for consistency, and exact duplicate records were identified and removed to prevent observation bias and the double-counting of revenue.</p>
+<ul>
+<li><p><strong>Standardization &amp; Deduplication</strong>: Column headers were standardized, and duplicate records were removed from the dataset.</p></li>
+<li><p><strong>Financial Feature Engineering</strong>: A discrete <code>revenue</code> variable was calculated for each line item (Price × Quantity).</p></li>
+<li><p><strong>Temporal Decomposition</strong>: The original date string was parsed into a datetime format and decomposed into <code>year</code>, <code>month</code>, and <code>year_month</code> fields to facilitate seasonal and time-series analysis.</p></li>
+<li><p><strong>Transaction Classification</strong>: A <code>transaction_type</code> indicator was created to isolate legitimate sales from returns. Any record with a negative quantity or a transaction ID starting with <strong>“C”</strong> was flagged as a <code>Cancelled/Return</code>.</p></li>
+</ul>
+<p>Following the deduplication and feature engineering phases, the final prepared dataset consists of 531,150 observations across 13 variables.</p>
+</section>
+<section id="research-design-and-purpose" class="level3" data-number="2.3">
+<h3 data-number="2.3" class="anchored" data-anchor-id="research-design-and-purpose"><span class="header-section-number">2.3</span> Research Design and Purpose</h3>
+<blockquote class="blockquote">
+<p>Purpose: examine the sales performance of a UK-based online retail business over a 13-month period from December 2018 to December 2019.</p>
+</blockquote>
+<p>Specifically, the analysis investigates transaction volume and revenue trends over time, and evaluates whether performance differs between the United Kingdom and international markets.</p>
+<p>This study first adopts a descriptive analytical approach, utilising transactional records to summarise and visualise patterns in the data. Furthermore, further business insights are further investigated to identify key values that would inform future operational and marketing decisions.</p>
+</section>
+<section id="overview---descriptive-analysis" class="level3" data-number="2.4">
+<h3 data-number="2.4" class="anchored" data-anchor-id="overview---descriptive-analysis"><span class="header-section-number">2.4</span> Overview - Descriptive Analysis</h3>
+<section id="number-of-orders-and-total-volume-by-month" class="level4" data-number="2.4.1">
+<h4 data-number="2.4.1" class="anchored" data-anchor-id="number-of-orders-and-total-volume-by-month"><span class="header-section-number">2.4.1</span> Number of orders and total Volume by month</h4>
+<p>As presented in <a href="#fig-overview" class="quarto-xref">Figure&nbsp;1</a>, The UK market consistently dominated both metrics throughout the period, where a pronounced upward trend is observed from September 2019 onwards, with transactions and revenue peaking in November 2019 at nearly 2500 orders and approximately £6.8M respectively, likely driven by seasonal demand ahead of the holiday period.</p>
+<p>The Non-UK market, while significantly smaller in absolute scale, demonstrated a gradual growth trajectory across 2019 with the upward trend merely mirror UK market. This suggests a slow but steady expansion of the international customer base.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-overview" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="report_files/figure-html/fig-overview-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Monthly Transaction and Revenue in UK vs non-UK countries in 2018-2019 period
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="general-quantitative-metrics" class="level4" data-number="2.4.2">
+<h4 data-number="2.4.2" class="anchored" data-anchor-id="general-quantitative-metrics"><span class="header-section-number">2.4.2</span> General Quantitative metrics</h4>
+<p>According to <a href="#tbl-overview" class="quarto-xref">Table&nbsp;1</a> along with the graph we see in <a href="#fig-overview" class="quarto-xref">Figure&nbsp;1</a>, both the UK and Non-UK markets recorded their peak transaction volumes and revenue in November 2019, with the UK reaching 2487 transactions and £6.81M in revenue, while Non-UK peaked at 266 transactions. This Q4 surge is consistent with seasonal holiday like Christmas and New Year</p>
+<p>Notably, Non-UK maximum revenue occurred in October 2019 (£1.37M) rather than November despite November having more transactions, suggesting a higher average basket value per order in October.</p>
+<p>The minimum values for both regions fall in December 2019 across all metrics. This might not be a genuine business downturn but rather a data artefact, as December 2019 represents an incomplete month in the dataset.</p>
+<div class="cell">
+<div id="tbl-overview" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Monthly Transaction and Revenue in UK vs non-UK countries in 2018-2019 period
+</figcaption>
+<div aria-describedby="tbl-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed table-bordered cell caption-top table-sm small">
+<caption>Table 1. Monthly Transaction and Revenue Summary by Region (Dec 2018 – Dec 2019)</caption>
+<colgroup>
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: left; empty-cells: hide; border-bottom: hidden;"></th>
+<th colspan="4" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Transactions
+</div></th>
+<th colspan="4" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Revenue
+</div></th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; color: white !important; background-color: rgba(76, 114, 176, 255) !important;">Region</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; color: white !important; background-color: rgba(76, 114, 176, 255) !important;">Total Transactions</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; color: white !important; background-color: rgba(76, 114, 176, 255) !important;">Mean Transactions/Month</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; color: white !important; background-color: rgba(76, 114, 176, 255) !important;">Min Transactions/Month</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; color: white !important; background-color: rgba(76, 114, 176, 255) !important;">Max Transactions/Month</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; color: white !important; background-color: rgba(76, 114, 176, 255) !important;">Total Revenue (£M)</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; color: white !important; background-color: rgba(76, 114, 176, 255) !important;">Mean Revenue/Month (£M)</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; color: white !important; background-color: rgba(76, 114, 176, 255) !important;">Min Revenue/Month (£M)</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; color: white !important; background-color: rgba(76, 114, 176, 255) !important;">Max Revenue/Month (£M)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Non-UK</td>
+<td style="text-align: right;">1882</td>
+<td style="text-align: right;">145</td>
+<td style="text-align: right;">73</td>
+<td style="text-align: right;">266</td>
+<td style="text-align: right;">10434509</td>
+<td style="text-align: right;">802654.5</td>
+<td style="text-align: right;">182853.1</td>
+<td style="text-align: right;">1374514</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">UK</td>
+<td style="text-align: right;">17908</td>
+<td style="text-align: right;">1378</td>
+<td style="text-align: right;">744</td>
+<td style="text-align: right;">2487</td>
+<td style="text-align: right;">52346878</td>
+<td style="text-align: right;">4026682.9</td>
+<td style="text-align: right;">2329216.4</td>
+<td style="text-align: right;">6806782</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
 
 </section>
+</section>
+</section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-ramos_e-commerce_nodate" class="csl-entry" role="listitem">
-Ramos, Gabriel. n.d. <span>“E-Commerce <span>Business</span> <span>Transaction</span>.”</span> Accessed June 6, 2026. <a href="https://www.kaggle.com/datasets/gabrielramos87/an-online-shop-business">https://www.kaggle.com/datasets/gabrielramos87/an-online-shop-business</a>.
+Ramos, Gabriel. n.d. <em>E-Commerce <span>Business</span> <span>Transaction</span></em>. Accessed June 6, 2026. <a href="https://www.kaggle.com/datasets/gabrielramos87/an-online-shop-business">https://www.kaggle.com/datasets/gabrielramos87/an-online-shop-business</a>.
 </div>
 </div></section></div></main>
 <!-- /main column -->

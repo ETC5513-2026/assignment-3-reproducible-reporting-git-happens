@@ -30,6 +30,7 @@ library(tidyverse)
 library(lubridate)
 library(janitor)
 library(knitr)
+library(scales)
 ```
 
 ```{r}
@@ -39,6 +40,31 @@ sales_data <- read_csv("data/Sales Transaction v.4a.csv")
 glimpse(sales_data)
 
 ```
+
+## Methodology
+
+### Data Collection and Sources
+
+This report utilizes secondary data sourced from *Kaggle*, a prominent open-source data repository. The dataset comprises one year of historical sales transactions from Dec 2018 to Dec 2019 from a UK-based online retailer. This organize headquartered in London, specializing in gifts and homewares for both adults and children.
+
+The business operates on a global scale and serves a dual customer base. Operations include **both direct-to-consumer (B2C) sales**, where individuals purchase for personal use, **and business-to-business (B2B) transactions**, where small businesses purchase items in bulk for retail distribution. Consequently, the transaction data is expected to exhibit diverse purchasing patterns, reflecting both individual consumer behavior and wholesale buying cycles.
+
+Structurally, the dataset contains **536,350 observations** and **8 variables**. The data grain is each record represent a specific product and its associated quantity within a distinct transaction.
+
+### About the Dataset
+
+To ensure data integrity and facilitate robust analysis, the raw dataset underwent a systematic cleaning and transformation process. Initially, variable names were standardized for consistency, and exact duplicate records were identified and removed to prevent observation bias and the double-counting of revenue.
+
+- **Standardization & Deduplication**: Column headers were standardized, and duplicate records were removed from the dataset.
+
+- **Financial Feature Engineering**: A discrete `revenue` variable was calculated for each line item (Price × Quantity).
+
+- **Temporal Decomposition**: The original date string was parsed into a datetime format and decomposed into `year`, `month`, and `year_month` fields to facilitate seasonal and time-series analysis.
+
+- **Transaction Classification**: A `transaction_type` indicator was created to isolate legitimate sales from returns. Any record with a negative quantity or a transaction ID starting with **"C"** was flagged as a `Cancelled/Return`.
+
+Following the deduplication and feature engineering phases, the final prepared dataset consists of 531,150 observations across 13 variables.
+
 ```{r}
 ## Data Cleaning
 
@@ -57,36 +83,134 @@ sales_clean <- sales_data |>
     )
   )
 
+df_clean <- sales_clean |> distinct()
 ```
 
+### Research Design and Purpose
+
+> **Purpose**: examine the sales performance of a UK-based online retail business over a 13-month period from December 2018 to December 2019. 
+
+Specifically, the analysis investigates transaction volume and revenue trends over time, and evaluates whether performance differs between the United Kingdom and international markets. 
+
+This study first adopts a descriptive analytical approach, utilising transactional records to summarise and visualise patterns in the data. Furthermore, further business insights are further investigated to identify key values that would inform future operational and marketing decisions.
+
+### Overview - Descriptive Analysis 
+
+#### Number of orders and total Volume by month
+
+As presented in @fig-overview, The UK market consistently dominated both metrics throughout the period, where a pronounced upward trend is observed from September 2019 onwards, with transactions and revenue peaking in November 2019 at nearly 2500 orders and approximately £6.8M respectively, likely driven by seasonal demand ahead of the holiday period.
+
+The Non-UK market, while significantly smaller in absolute scale, demonstrated a gradual growth trajectory across 2019 with the upward trend merely mirror UK market. This suggests a slow but steady expansion of the international customer base.
 
 ```{r}
-#Cancelled dataset
-cancelled_orders <- sales_clean |>
-  filter(transaction_type == "Cancelled/Return")
-```
+#| echo: false
+#| message: false
+#| fig-cap: "Monthly Transaction and Revenue in UK vs non-UK countries in 2018-2019 period"
+#| label: fig-overview
 
 
-
-```{r}
-#Checking the percentage of the UK and Non UK countries on the basis of transaction number
-transaction_percentage <- sales_clean |>
+df_clean <- df_clean |>
+  distinct() |>
+  filter(transaction_type == "Sale") |>
   mutate(
-    market = if_else(
-      country == "United Kingdom",
-      "United Kingdom",
-      "Non-UK"
-    )
-  ) |>
-  distinct(transaction_no, market) |>
-  count(market, name = "number_of_transactions") |>
-  mutate(
-    percentage = round(number_of_transactions / sum(number_of_transactions) * 100, 2)
+    region     = ifelse(country == "United Kingdom", "UK", "Non-UK"),
+    year_month = as.Date(year_month)
   )
 
-transaction_percentage
+monthly_long <- df_clean |>
+  group_by(year_month, region) |>
+  summarise(
+    `No. of Transactions` = n_distinct(transaction_no),
+    `Total Revenue (£M)`  = sum(revenue, na.rm = TRUE) / 1e6,
+    .groups = "drop"
+  ) |>
+  pivot_longer(
+    cols      = c(`No. of Transactions`, `Total Revenue (£M)`),
+    names_to  = "metric",
+    values_to = "value"
+  )
 
-write_csv(sales_clean, "data/ clean_datatset.csv")
+ggplot(monthly_long, aes(x = year_month, y = value, fill = region)) +
+  geom_col(alpha = 0.8) +
+  facet_grid(metric ~ region, scales = "free_y") +
+  scale_x_date(date_labels = "%b\n%Y", date_breaks = "1 month") +
+  scale_y_continuous(labels = label_comma(accuracy = 0.1)) +
+  scale_fill_manual(values = c("UK" = "#4C72B0", "Non-UK" = "#DD8453")) +
+  labs(
+    title    = "Figure 1. Monthly Transactions and Revenue: UK vs Non-UK",
+    subtitle = "Sales only  ·  Dec 2018 – Dec 2019",
+    x = NULL, y = NULL
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(
+    legend.position  = "none",
+    strip.text       = element_text(face = "bold", size = 11),
+    strip.background = element_rect(fill = "grey92", colour = NA),
+    axis.text.x      = element_text(size = 7),
+    panel.spacing    = unit(1, "lines"),
+    plot.title       = element_text(face = "bold", size = 14),
+    plot.subtitle    = element_text(colour = "grey40", size = 10)
+  )
 ```
 
 
+#### General Quantitative metrics
+
+According to @tbl-overview along with the graph we see in @fig-overview, both the UK and Non-UK markets recorded their peak transaction volumes and revenue in November 2019, with the UK reaching 2487 transactions and £6.81M in revenue, while Non-UK peaked at 266 transactions. This Q4 surge is consistent with seasonal holiday like Christmas and New Year 
+
+Notably, Non-UK maximum revenue occurred in October 2019 (£1.37M) rather than November despite November having more transactions, suggesting a higher average basket value per order in October. 
+
+The minimum values for both regions fall in December 2019 across all metrics. This might not be a genuine business downturn but rather a data artefact, as December 2019 represents an incomplete month in the dataset.
+
+```{r}
+#| echo: false
+#| message: false
+#| tbl-cap: "Monthly Transaction and Revenue in UK vs non-UK countries in 2018-2019 period"
+#| label: tbl-overview
+
+
+library(kableExtra)
+
+overview_table <- df_clean |>
+  mutate(region = ifelse(country == "United Kingdom", "UK", "Non-UK")) |>
+  group_by(year_month, region) |>
+  summarise(
+    n_transactions = n_distinct(transaction_no),
+    revenue        = sum(revenue, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  group_by(region) |>
+  summarise(
+    `Total Transactions`     = sum(n_transactions),
+    `Mean Transactions/Month` = round(mean(n_transactions), 0),
+    `Min Transactions/Month`  = min(n_transactions),
+    `Max Transactions/Month`  = max(n_transactions),
+    `Total Revenue (£M)`      = round(sum(revenue), 2),
+    `Mean Revenue/Month (£M)` = round(mean(revenue), 2),
+    `Min Revenue/Month (£M)`  = round(min(revenue), 2),
+    `Max Revenue/Month (£M)`  = round(max(revenue), 2),
+    .groups = "drop"
+  ) |>
+  rename(Region = region)
+
+overview_table |>
+  kable(
+    format  = "html",
+    caption = "Table 1. Monthly Transaction and Revenue Summary by Region (Dec 2018 – Dec 2019)",
+    align   = c("l", rep("r", 8)),
+    big.mark = ","
+  ) |>
+  kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed", "bordered"),
+    full_width        = FALSE,
+    position          = "center",
+    font_size         = 13
+  ) |>
+  add_header_above(
+    c(" " = 1,
+      "Transactions" = 4,
+      "Revenue" = 4)
+  ) |>
+  row_spec(0, bold = TRUE, background = "#4C72B0", color = "white") |>
+  column_spec(1, bold = TRUE)
+```
