@@ -24,3 +24,69 @@ execute:
 ## Test
 
 @ramos_e-commerce_nodate
+
+```{r setup}
+library(tidyverse)
+library(lubridate)
+library(janitor)
+library(knitr)
+```
+
+```{r}
+## Data Loading
+sales_data <- read_csv("data/Sales Transaction v.4a.csv")
+
+glimpse(sales_data)
+
+```
+```{r}
+## Data Cleaning
+
+sales_clean <- sales_data |>
+  clean_names() |>
+  mutate(
+    date = mdy(date),
+    revenue = price * quantity,
+    year = year(date),
+    month = month(date, label = TRUE),
+    year_month = floor_date(date, "month"),
+    transaction_type = if_else(
+      quantity < 0 | str_starts(transaction_no, "C"),
+      "Cancelled/Return",
+      "Sale"
+    )
+  )
+
+```
+
+
+```{r}
+#Cancelled dataset
+cancelled_orders <- sales_clean |>
+  filter(transaction_type == "Cancelled/Return")
+```
+
+
+
+```{r}
+#Checking the percentage of the UK and Non UK countries on the basis of transaction number
+transaction_percentage <- sales_clean |>
+  mutate(
+    market = if_else(
+      country == "United Kingdom",
+      "United Kingdom",
+      "Non-UK"
+    )
+  ) |>
+  distinct(transaction_no, market) |>
+  count(market, name = "number_of_transactions") |>
+  mutate(
+    percentage = round(number_of_transactions / sum(number_of_transactions) * 100, 2)
+  )
+
+transaction_percentage
+
+write_csv(sales_clean, "data/ clean_datatset.csv")
+```
+
+
