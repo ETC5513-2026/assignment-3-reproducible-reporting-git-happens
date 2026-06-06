@@ -49,24 +49,28 @@ sales_clean <- sales_data |>
     revenue = price * quantity,
     year = year(date),
     month = month(date, label = TRUE),
-    year_month = floor_date(date, "month")
+    year_month = floor_date(date, "month"),
+    transaction_type = if_else(
+      quantity < 0 | str_starts(transaction_no, "C"),
+      "Cancelled/Return",
+      "Sale"
+    )
   )
 
 ```
 
+
 ```{r}
-transaction_summary <- sales_clean |>
-  group_by(transaction_no, country) |>
-  summarise(
-    transaction_revenue = sum(revenue),
-    total_quantity = sum(quantity),
-    number_of_products = n_distinct(product_no),
-    number_of_lines = n(),
-    .groups = "drop"
-  )
+#Cancelled dataset
+cancelled_orders <- sales_clean |>
+  filter(transaction_type == "Cancelled/Return")
+```
 
 
-transaction_percentage <- transaction_summary |>
+
+```{r}
+#Checking the percentage of the UK and Non UK countries on the basis of transaction number
+transaction_percentage <- sales_clean |>
   mutate(
     market = if_else(
       country == "United Kingdom",
@@ -74,13 +78,10 @@ transaction_percentage <- transaction_summary |>
       "Non-UK"
     )
   ) |>
-  group_by(market) |>
-  summarise(
-    number_of_transactions = n_distinct(transaction_no),
-    .groups = "drop"
-  ) |>
+  distinct(transaction_no, market) |>
+  count(market, name = "number_of_transactions") |>
   mutate(
-    percentage = number_of_transactions / sum(number_of_transactions) * 100
+    percentage = round(number_of_transactions / sum(number_of_transactions) * 100, 2)
   )
 
 transaction_percentage
