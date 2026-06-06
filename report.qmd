@@ -34,6 +34,9 @@ library(scales)
 ```
 
 ```{r}
+#| echo: false
+#| message: false
+#| results: false
 ## Data Loading
 sales_data <- read_csv("data/Sales Transaction v.4a.csv")
 
@@ -55,13 +58,13 @@ Structurally, the dataset contains **536,350 observations** and **8 variables**.
 
 To ensure data integrity and facilitate robust analysis, the raw dataset underwent a systematic cleaning and transformation process. Initially, variable names were standardized for consistency, and exact duplicate records were identified and removed to prevent observation bias and the double-counting of revenue.
 
-- **Standardization & Deduplication**: Column headers were standardized, and duplicate records were removed from the dataset.
+-   **Standardization & Deduplication**: Column headers were standardized, and duplicate records were removed from the dataset.
 
-- **Financial Feature Engineering**: A discrete `revenue` variable was calculated for each line item (Price × Quantity).
+-   **Financial Feature Engineering**: A discrete `revenue` variable was calculated for each line item (Price × Quantity).
 
-- **Temporal Decomposition**: The original date string was parsed into a datetime format and decomposed into `year`, `month`, and `year_month` fields to facilitate seasonal and time-series analysis.
+-   **Temporal Decomposition**: The original date string was parsed into a datetime format and decomposed into `year`, `month`, and `year_month` fields to facilitate seasonal and time-series analysis.
 
-- **Transaction Classification**: A `transaction_type` indicator was created to isolate legitimate sales from returns. Any record with a negative quantity or a transaction ID starting with **"C"** was flagged as a `Cancelled/Return`.
+-   **Transaction Classification**: A `transaction_type` indicator was created to isolate legitimate sales from returns. Any record with a negative quantity or a transaction ID starting with **"C"** was flagged as a `Cancelled/Return`.
 
 Following the deduplication and feature engineering phases, the final prepared dataset consists of 531,150 observations across 13 variables.
 
@@ -88,13 +91,13 @@ df_clean <- sales_clean |> distinct()
 
 ### Research Design and Purpose
 
-> **Purpose**: examine the sales performance of a UK-based online retail business over a 13-month period from December 2018 to December 2019. 
+> **Purpose**: examine the sales performance of a UK-based online retail business over a 13-month period from December 2018 to December 2019.
 
-Specifically, the analysis investigates transaction volume and revenue trends over time, and evaluates whether performance differs between the United Kingdom and international markets. 
+Specifically, the analysis investigates transaction volume and revenue trends over time, and evaluates whether performance differs between the United Kingdom and international markets.
 
 This study first adopts a descriptive analytical approach, utilising transactional records to summarise and visualise patterns in the data. Furthermore, further business insights are further investigated to identify key values that would inform future operational and marketing decisions.
 
-### Overview - Descriptive Analysis 
+### Overview - Descriptive Analysis
 
 #### Number of orders and total Volume by month
 
@@ -153,12 +156,11 @@ ggplot(monthly_long, aes(x = year_month, y = value, fill = region)) +
   )
 ```
 
-
 #### General Quantitative metrics
 
-According to @tbl-overview along with the graph we see in @fig-overview, both the UK and Non-UK markets recorded their peak transaction volumes and revenue in November 2019, with the UK reaching 2487 transactions and £6.81M in revenue, while Non-UK peaked at 266 transactions. This Q4 surge is consistent with seasonal holiday like Christmas and New Year 
+According to @tbl-overview along with the graph we see in @fig-overview, both the UK and Non-UK markets recorded their peak transaction volumes and revenue in November 2019, with the UK reaching 2487 transactions and £6.81M in revenue, while Non-UK peaked at 266 transactions. This Q4 surge is consistent with seasonal holiday like Christmas and New Year
 
-Notably, Non-UK maximum revenue occurred in October 2019 (£1.37M) rather than November despite November having more transactions, suggesting a higher average basket value per order in October. 
+Notably, Non-UK maximum revenue occurred in October 2019 (£1.37M) rather than November despite November having more transactions, suggesting a higher average basket value per order in October.
 
 The minimum values for both regions fall in December 2019 across all metrics. This might not be a genuine business downturn but rather a data artefact, as December 2019 represents an incomplete month in the dataset.
 
@@ -175,28 +177,35 @@ overview_table <- df_clean |>
   mutate(region = ifelse(country == "United Kingdom", "UK", "Non-UK")) |>
   group_by(year_month, region) |>
   summarise(
-    n_transactions = n_distinct(transaction_no),
-    revenue        = sum(revenue, na.rm = TRUE),
+    Transactions = n_distinct(transaction_no),
+    Revenue = sum(revenue, na.rm = TRUE),
     .groups = "drop"
   ) |>
   group_by(region) |>
   summarise(
-    `Total Transactions`     = sum(n_transactions),
-    `Mean Transactions/Month` = round(mean(n_transactions), 0),
-    `Min Transactions/Month`  = min(n_transactions),
-    `Max Transactions/Month`  = max(n_transactions),
-    `Total Revenue (£M)`      = round(sum(revenue), 2),
-    `Mean Revenue/Month (£M)` = round(mean(revenue), 2),
-    `Min Revenue/Month (£M)`  = round(min(revenue), 2),
-    `Max Revenue/Month (£M)`  = round(max(revenue), 2),
+    `Total Transactions`      = sum(Transactions),
+    `Mean Transactions/Month` = round(mean(Transactions), 0),
+    `Min Transactions/Month`  = min(Transactions),
+    `Max Transactions/Month`  = max(Transactions),
+    `Total Revenue (£)`       = round(sum(Revenue), 2),
+    `Mean Revenue/Month (£)`  = round(mean(Revenue), 2),
+    `Min Revenue/Month (£)`   = round(min(Revenue), 2),
+    `Max Revenue/Month (£)`   = round(max(Revenue), 2),
     .groups = "drop"
   ) |>
-  rename(Region = region)
+  tidyr::pivot_longer(
+    cols = -region,
+    names_to = "Metric",
+    values_to = "Value"
+  ) |>
+  tidyr::pivot_wider(
+    names_from = region,
+    values_from = Value
+  )
 
 overview_table |>
   kable(
     format  = "html",
-    caption = "Table 1. Monthly Transaction and Revenue Summary by Region (Dec 2018 – Dec 2019)",
     align   = c("l", rep("r", 8)),
     big.mark = ","
   ) |>
@@ -208,8 +217,7 @@ overview_table |>
   ) |>
   add_header_above(
     c(" " = 1,
-      "Transactions" = 4,
-      "Revenue" = 4)
+      "Region" = 2)
   ) |>
   row_spec(0, bold = TRUE, background = "#4C72B0", color = "white") |>
   column_spec(1, bold = TRUE)

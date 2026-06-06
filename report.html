@@ -127,20 +127,6 @@ div.csl-indent {
 <section id="test" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="test"><span class="header-section-number">1</span> Test</h2>
 <p><span class="citation" data-cites="ramos_e-commerce_nodate">Ramos (<a href="#ref-ramos_e-commerce_nodate" role="doc-biblioref">n.d.</a>)</span></p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>Rows: 536,350
-Columns: 8
-$ TransactionNo &lt;chr&gt; "581482", "581475", "581475", "581475", "581475", "58147…
-$ Date          &lt;chr&gt; "12/9/2019", "12/9/2019", "12/9/2019", "12/9/2019", "12/…
-$ ProductNo     &lt;chr&gt; "22485", "22596", "23235", "23272", "23239", "21705", "2…
-$ ProductName   &lt;chr&gt; "Set Of 2 Wooden Market Crates", "Christmas Star Wish Li…
-$ Price         &lt;dbl&gt; 21.47, 10.65, 11.53, 10.65, 11.94, 10.65, 11.53, 12.25, …
-$ Quantity      &lt;dbl&gt; 12, 36, 12, 12, 6, 24, 18, 12, 12, 24, 20, 12, 20, 12, 1…
-$ CustomerNo    &lt;dbl&gt; 17490, 13069, 13069, 13069, 13069, 13069, 13069, 13069, …
-$ Country       &lt;chr&gt; "United Kingdom", "United Kingdom", "United Kingdom", "U…</code></pre>
-</div>
-</div>
 </section>
 <section id="methodology" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="methodology"><span class="header-section-number">2</span> Methodology</h2>
@@ -164,7 +150,7 @@ $ Country       &lt;chr&gt; "United Kingdom", "United Kingdom", "United Kingdom"
 <section id="research-design-and-purpose" class="level3" data-number="2.3">
 <h3 data-number="2.3" class="anchored" data-anchor-id="research-design-and-purpose"><span class="header-section-number">2.3</span> Research Design and Purpose</h3>
 <blockquote class="blockquote">
-<p>Purpose: examine the sales performance of a UK-based online retail business over a 13-month period from December 2018 to December 2019.</p>
+<p><strong>Purpose</strong>: examine the sales performance of a UK-based online retail business over a 13-month period from December 2018 to December 2019.</p>
 </blockquote>
 <p>Specifically, the analysis investigates transaction volume and revenue trends over time, and evaluates whether performance differs between the United Kingdom and international markets.</p>
 <p>This study first adopts a descriptive analytical approach, utilising transactional records to summarise and visualise patterns in the data. Furthermore, further business insights are further investigated to identify key values that would inform future operational and marketing decisions.</p>
@@ -204,61 +190,63 @@ Table&nbsp;1: Monthly Transaction and Revenue in UK vs non-UK countries in 2018-
 <div aria-describedby="tbl-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
 <table class="table table-striped table-hover table-condensed table-bordered cell caption-top table-sm small">
-<caption>Table 1. Monthly Transaction and Revenue Summary by Region (Dec 2018 – Dec 2019)</caption>
 <colgroup>
-<col style="width: 11%">
-<col style="width: 11%">
-<col style="width: 11%">
-<col style="width: 11%">
-<col style="width: 11%">
-<col style="width: 11%">
-<col style="width: 11%">
-<col style="width: 11%">
-<col style="width: 11%">
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
 </colgroup>
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th" style="text-align: left; empty-cells: hide; border-bottom: hidden;"></th>
-<th colspan="4" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-Transactions
-</div></th>
-<th colspan="4" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-Revenue
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Region
 </div></th>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; color: white !important; background-color: rgba(76, 114, 176, 255) !important;">Region</th>
-<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; color: white !important; background-color: rgba(76, 114, 176, 255) !important;">Total Transactions</th>
-<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; color: white !important; background-color: rgba(76, 114, 176, 255) !important;">Mean Transactions/Month</th>
-<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; color: white !important; background-color: rgba(76, 114, 176, 255) !important;">Min Transactions/Month</th>
-<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; color: white !important; background-color: rgba(76, 114, 176, 255) !important;">Max Transactions/Month</th>
-<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; color: white !important; background-color: rgba(76, 114, 176, 255) !important;">Total Revenue (£M)</th>
-<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; color: white !important; background-color: rgba(76, 114, 176, 255) !important;">Mean Revenue/Month (£M)</th>
-<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; color: white !important; background-color: rgba(76, 114, 176, 255) !important;">Min Revenue/Month (£M)</th>
-<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; color: white !important; background-color: rgba(76, 114, 176, 255) !important;">Max Revenue/Month (£M)</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; color: white !important; background-color: rgba(76, 114, 176, 255) !important;">Metric</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; color: white !important; background-color: rgba(76, 114, 176, 255) !important;">Non-UK</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; color: white !important; background-color: rgba(76, 114, 176, 255) !important;">UK</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left; font-weight: bold;">Non-UK</td>
-<td style="text-align: right;">1882</td>
-<td style="text-align: right;">145</td>
-<td style="text-align: right;">73</td>
-<td style="text-align: right;">266</td>
-<td style="text-align: right;">10434509</td>
-<td style="text-align: right;">802654.5</td>
-<td style="text-align: right;">182853.1</td>
-<td style="text-align: right;">1374514</td>
+<td style="text-align: left; font-weight: bold;">Total Transactions</td>
+<td style="text-align: right;">1882.0</td>
+<td style="text-align: right;">17908</td>
 </tr>
 <tr class="even">
-<td style="text-align: left; font-weight: bold;">UK</td>
-<td style="text-align: right;">17908</td>
+<td style="text-align: left; font-weight: bold;">Mean Transactions/Month</td>
+<td style="text-align: right;">145.0</td>
 <td style="text-align: right;">1378</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Min Transactions/Month</td>
+<td style="text-align: right;">73.0</td>
 <td style="text-align: right;">744</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">Max Transactions/Month</td>
+<td style="text-align: right;">266.0</td>
 <td style="text-align: right;">2487</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Total Revenue (£)</td>
+<td style="text-align: right;">10434508.9</td>
 <td style="text-align: right;">52346878</td>
-<td style="text-align: right;">4026682.9</td>
-<td style="text-align: right;">2329216.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">Mean Revenue/Month (£)</td>
+<td style="text-align: right;">802654.5</td>
+<td style="text-align: right;">4026683</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Min Revenue/Month (£)</td>
+<td style="text-align: right;">182853.1</td>
+<td style="text-align: right;">2329216</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">Max Revenue/Month (£)</td>
+<td style="text-align: right;">1374514.2</td>
 <td style="text-align: right;">6806782</td>
 </tr>
 </tbody>
