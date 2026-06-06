@@ -45,7 +45,7 @@ glimpse(sales_data)
 sales_clean <- sales_data |>
   clean_names() |>
   mutate(
-    date = dmy(date),
+    date = mdy(date),
     revenue = price * quantity,
     year = year(date),
     month = month(date, label = TRUE),
