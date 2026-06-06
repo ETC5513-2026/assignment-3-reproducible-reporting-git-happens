@@ -24,3 +24,66 @@ execute:
 ## Test
 
 @ramos_e-commerce_nodate
+
+```{r setup}
+library(tidyverse)
+library(lubridate)
+library(janitor)
+library(knitr)
+```
+
+```{r}
+## Data Loading
+sales_data <- read_csv("data/sales_transaction_dataset.csv")
+
+glimpse(sales_data)
+
+```
+```{r}
+## Data Cleaning
+
+sales_clean <- sales_data |>
+  clean_names() |>
+  mutate(
+    date = dmy(date),
+    revenue = price * quantity,
+    year = year(date),
+    month = month(date, label = TRUE),
+    year_month = floor_date(date, "month")
+  )
+
+```
+
+```{r}
+transaction_summary <- sales_clean |>
+  group_by(transaction_no, country) |>
+  summarise(
+    transaction_revenue = sum(revenue),
+    total_quantity = sum(quantity),
+    number_of_products = n_distinct(product_no),
+    number_of_lines = n(),
+    .groups = "drop"
+  )
+
+
+transaction_percentage <- transaction_summary |>
+  mutate(
+    market = if_else(
+      country == "United Kingdom",
+      "United Kingdom",
+      "Non-UK"
+    )
+  ) |>
+  group_by(market) |>
+  summarise(
+    number_of_transactions = n_distinct(transaction_no),
+    .groups = "drop"
+  ) |>
+  mutate(
+    percentage = number_of_transactions / sum(number_of_transactions) * 100
+  )
+
+transaction_percentage
+```
+
+
