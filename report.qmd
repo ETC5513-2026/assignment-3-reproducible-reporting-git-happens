@@ -87,6 +87,7 @@ sales_clean <- sales_clean |>
   mutate(
   transaction_no = str_remove(transaction_no, "^C")
 ) |> 
+  distinct() |> 
   group_by(transaction_no) |> 
   mutate(
     total_revenue = sum(revenue, na.rm = TRUE)
@@ -149,4 +150,6 @@ dist_trans |>
     axis.text.x = element_text(angle = 45, hjust = 1)
   )
 ```
+
+
 
