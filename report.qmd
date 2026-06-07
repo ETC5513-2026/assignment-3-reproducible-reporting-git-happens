@@ -237,24 +237,24 @@ overview_table |>
 #| fig-cap: "Metrics for Basket Size per transaction by country in 2018-2019 period"
 #| label: fig-basket-value
 
-basket_country <- sales_clean %>%
+basket_country <- sales_clean |>
   filter(transaction_type == "Sale") |> 
-  group_by(country, transaction_no) %>%
-  summarise(basket_value = sum(revenue, na.rm = TRUE), .groups = "drop") %>%
-  group_by(country) %>%
+  group_by(country, transaction_no) |>
+  summarise(basket_value = sum(revenue, na.rm = TRUE), .groups = "drop") |>
+  group_by(country) |>
   summarise(
     `Transactions`           = n(),
     `Mean Basket (£)`        = round(mean(basket_value), 2),
     .groups = "drop"
-  ) %>%
-  arrange(desc(`Mean Basket (£)`)) %>%
+  ) |>
+  arrange(desc(`Mean Basket (£)`)) |>
   rename(Country = country)
 
-top10 <- basket_country %>% slice_max(`Mean Basket (£)`, n = 10)
-uk_row <- basket_country %>% filter(Country == "United Kingdom")
+top10 <- basket_country |> slice_max(`Mean Basket (£)`, n = 10)
+uk_row <- basket_country |> filter(Country == "United Kingdom")
 
-bind_rows(top10, uk_row) %>%
-  distinct(Country, .keep_all = TRUE) %>%
+bind_rows(top10, uk_row) |>
+  distinct(Country, .keep_all = TRUE) |>
   mutate(
     Country   = fct_reorder(Country, `Mean Basket (£)`),
     highlight = case_when(
@@ -262,12 +262,12 @@ bind_rows(top10, uk_row) %>%
       Country == "United Kingdom"                ~ "UK",
       TRUE                                       ~ "Other"
     )
-  ) %>%
+  ) |>
   pivot_longer(                                        # ← key change
     cols     = c(`Mean Basket (£)`, `Transactions`),
     names_to  = "metric",
     values_to = "value"
-  ) %>%
+  ) |>
   ggplot(aes(x = value, y = Country, fill = highlight)) +
   geom_col(alpha = 0.85) +
   geom_text(
@@ -313,8 +313,8 @@ bind_rows(top10, uk_row) %>%
 #| label: fig-cancellation
 
 
-cancel_summary <- sales_clean %>%
-  group_by(country) %>%
+cancel_summary <- sales_clean |>
+  group_by(country) |>
   summarise(
     total        = n(),
     cancelled    = sum(transaction_type == "Cancelled/Return"),
@@ -323,13 +323,13 @@ cancel_summary <- sales_clean %>%
       revenue[transaction_type == "Cancelled/Return"],
       na.rm = TRUE)) / 1000, 1),
     .groups = "drop"
-  ) %>%
-  filter(total > 100) %>%                             
-  arrange(desc(`Cancel Rate (%)`)) %>%
-  rename(Country = country) %>%
+  ) |>
+  filter(total > 100) |>                             
+  arrange(desc(`Cancel Rate (%)`)) |>
+  rename(Country = country) |>
   select(Country, `Cancel Rate (%)`, `Revenue Lost (£K)`)
 
-cancel_summary %>%
+cancel_summary |>
   filter(`Cancel Rate (%)` > 0) |> 
   mutate(
     Country   = fct_reorder(Country, `Cancel Rate (%)`),
@@ -338,12 +338,12 @@ cancel_summary %>%
       `Cancel Rate (%)` > 3        ~ "High Risk",
       TRUE                         ~ "Other"
     )
-  ) %>%
+  ) |>
   pivot_longer(
     cols      = c(`Cancel Rate (%)`, `Revenue Lost (£K)`),
     names_to  = "metric",
     values_to = "value"
-  ) %>%
+  ) |>
   ggplot(aes(x = value, y = Country, fill = highlight)) +
   geom_col(alpha = 0.85) +
   geom_text(
