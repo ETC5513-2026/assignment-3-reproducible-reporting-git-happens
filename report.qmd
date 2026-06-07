@@ -46,11 +46,11 @@ This study first adopts a descriptive analytical approach, utilising transaction
 #| echo: false
 #| message: false
 #| results: false
+```
+
+```{r}
 ## Data Loading
 sales_data <- read_csv("data/Sales Transaction v.4a.csv")
-
-glimpse(sales_data)
-
 ```
 
 ## Methodology
@@ -83,8 +83,10 @@ In order to identify trends in both number of transactions and total revenue for
 
 These plots allow for the easy visual identification of market trends across the 13-month period we have data for.
 
-```{r data-cleaning}
 
+
+```{r}
+## Data Cleaning
 sales_clean <- sales_data |>
   clean_names() |>
   mutate(
@@ -93,7 +95,6 @@ sales_clean <- sales_data |>
     year = year(date),
     month = month(date, label = TRUE),
     year_month = floor_date(date, "month"),
-
     # flagging order cancellations
     transaction_type = if_else(
       quantity < 0 | str_starts(transaction_no, "C"),
@@ -107,7 +108,6 @@ sales_clean <- sales_data |>
 ```{r}
 #| fig-cap: "Monthly Transaction and Revenue in UK vs non-UK countries in 2018-2019 period"
 #| label: fig-overview
-
 
 sales_with_region <- sales_clean |>
   filter(transaction_type == "Sale") |>
@@ -240,3 +240,7 @@ nocite: |
 ::: {#refs}
 
 :::
+
+  )
+
+
