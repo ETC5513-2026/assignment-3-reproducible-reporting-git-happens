@@ -14,6 +14,7 @@ format:
     toc: true
     number-section: true
 bibliography: references.bib
+lightbox: true
 execute:
   echo: false
   output: true
@@ -27,6 +28,7 @@ library(lubridate)
 library(janitor)
 library(knitr)
 library(scales)
+library(kableExtra)
 ```
 
 ```{r data-load}
@@ -81,9 +83,8 @@ sales_clean <- sales_data |>
       "Cancelled/Return",
       "Sale"
     )
-  )
-
-df_clean <- sales_clean |> distinct()
+  ) |> 
+  distinct() # deduplication
 ```
 
 ### Research Design and Purpose
@@ -103,21 +104,18 @@ As presented in @fig-overview, The UK market consistently dominated both metrics
 The Non-UK market, while significantly smaller in absolute scale, demonstrated a gradual growth trajectory across 2019 with the upward trend merely mirror UK market. This suggests a slow but steady expansion of the international customer base.
 
 ```{r}
-#| echo: false
-#| message: false
 #| fig-cap: "Monthly Transaction and Revenue in UK vs non-UK countries in 2018-2019 period"
 #| label: fig-overview
 
 
-df_clean <- df_clean |>
-  distinct() |>
+sales_with_region <- sales_clean |>
   filter(transaction_type == "Sale") |>
   mutate(
     region     = ifelse(country == "United Kingdom", "UK", "Non-UK"),
     year_month = as.Date(year_month)
   )
 
-monthly_long <- df_clean |>
+monthly_long <- sales_with_region |>
   group_by(year_month, region) |>
   summarise(
     `No. of Transactions` = n_distinct(transaction_no),
@@ -162,16 +160,10 @@ Notably, Non-UK maximum revenue occurred in October 2019 (£1.37M) rather than N
 The minimum values for both regions fall in December 2019 across all metrics. This might not be a genuine business downturn but rather a data artefact, as December 2019 represents an incomplete month in the dataset.
 
 ```{r}
-#| echo: false
-#| message: false
 #| tbl-cap: "Monthly Transaction and Revenue in UK vs non-UK countries in 2018-2019 period"
 #| label: tbl-overview
 
-
-library(kableExtra)
-
-overview_table <- df_clean |>
-  mutate(region = ifelse(country == "United Kingdom", "UK", "Non-UK")) |>
+overview_table <- sales_with_region |> 
   group_by(year_month, region) |>
   summarise(
     Transactions = n_distinct(transaction_no),
