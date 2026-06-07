@@ -190,13 +190,21 @@ overview_table <- sales_with_region |>
   tidyr::pivot_wider(
     names_from = region,
     values_from = Value
+  ) |> 
+  mutate(
+    across(
+      -Metric,
+      ~ ifelse(
+        grepl("Revenue", Metric),
+        format(round(.x, 2), big.mark = ",", nsmall = 2),
+        format(round(.x, 0), big.mark = ",", nsmall = 0)
+      )
+    )
   )
-
+  
 overview_table |>
   kable(
-    format  = "html",
-    align   = c("l", rep("r", 8)),
-    big.mark = ","
+    align   = c("l", rep("r", 8))
   ) |>
   kable_styling(
     bootstrap_options = c("striped", "hover", "condensed", "bordered"),
