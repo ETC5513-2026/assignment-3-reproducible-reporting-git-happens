@@ -24,6 +24,8 @@ execute:
 ---
 
 ```{r setup}
+renv::restore()
+
 library(tidyverse)
 library(lubridate)
 library(janitor)
