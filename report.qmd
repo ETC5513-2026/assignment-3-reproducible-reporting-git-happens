@@ -159,9 +159,7 @@ As presented in @fig-overview, The UK market consistently dominated in both numb
 
 The Non-UK market, while significantly smaller in absolute scale, demonstrated a gradual growth trajectory across 2019 with the upward trend merely mirror UK market. This suggests a slow but steady expansion of the international customer base.
 
-
-
-#### General Quantitative metrics
+### General Quantitative metrics
 
 As seen in @fig-overview, both the UK and Non-UK markets reached their peak transaction volumes and revenue towards the end of 2019. Referencing @tbl-overview, the UK reached 2487 transactions and £6.81M in revenue in November 2019, while Non-UK countries peaked at 266 transactions in the same month. This Q4 surge is consistent with seasonal holidays like Christmas and New Year.
 
