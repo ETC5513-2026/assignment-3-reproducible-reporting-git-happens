@@ -36,6 +36,8 @@ library(kableExtra)
 
 ### Research Design and Purpose
 
+
+
 > **Purpose**: to examine the sales performance of a UK-based online retail business over a 13-month period from December 2018 to December 2019.
 
 Specifically, the analysis investigates transaction volume and revenue trends over time, and evaluates whether performance differs between the United Kingdom and international markets.
