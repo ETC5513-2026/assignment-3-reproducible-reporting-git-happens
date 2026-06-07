@@ -153,7 +153,7 @@ ggplot(monthly_long, aes(x = year_month, y = value, fill = region)) +
 
 #### General Quantitative metrics
 
-According to @tbl-overview along with the graph we see in @fig-overview, both the UK and Non-UK markets recorded their peak transaction volumes and revenue in November 2019, with the UK reaching 2487 transactions and £6.81M in revenue, while Non-UK peaked at 266 transactions. This Q4 surge is consistent with seasonal holiday like Christmas and New Year
+As seen in @fig-overview, both the UK and Non-UK markets reached their peak transaction volumes and revenue towards the end of 2019. Referencing @tbl-overview, the UK reached 2487 transactions and £6.81M in revenue in November 2019, while Non-UK countries peaked at 266 transactions in the same month. This Q4 surge is consistent with seasonal holidays like Christmas and New Year.
 
 Notably, Non-UK maximum revenue occurred in October 2019 (£1.37M) rather than November despite November having more transactions, suggesting a higher average basket value per order in October.
 
