@@ -14,6 +14,7 @@ format:
     toc: true
     number-section: true
 bibliography: references.bib
+csl: apa.csl
 lightbox: true
 execute:
   echo: false
@@ -227,3 +228,15 @@ overview_table |>
   row_spec(0, bold = TRUE, background = "#4C72B0", color = "white") |>
   column_spec(1, bold = TRUE)
 ```
+
+
+## References
+
+---
+nocite: |
+  @tidyverse-cite, @lubridate-cite, @knitr-cite, @janitor-cite, @scales-cite, @kableExtra-cite 
+---
+
+::: {#refs}
+
+:::
