@@ -226,6 +226,9 @@ overview_table |>
 ## Findings
 
 ```{r}
+#| label: fig-non-uk-figures
+#| fig-cap: "Transactions and Revenue for Non-UK Countries"
+
 transaction_summary <- sales_clean |>
   group_by(transaction_no) |>
   summarise(
@@ -267,7 +270,6 @@ country_summary |>
   facet_wrap(~ Metric, scales = "free_x") +
   coord_flip() +
   labs(
-    title = "Transactions and Revenue by Non-UK Country",
     x = "Country",
     y = NULL
   ) +
