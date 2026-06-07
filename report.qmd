@@ -21,10 +21,6 @@ execute:
   message: false
 ---
 
-## Test
-
-@ramos_e-commerce_nodate
-
 ```{r setup}
 library(tidyverse)
 library(lubridate)
@@ -33,7 +29,7 @@ library(knitr)
 library(scales)
 ```
 
-```{r}
+```{r data-load}
 #| echo: false
 #| message: false
 #| results: false
@@ -48,11 +44,11 @@ glimpse(sales_data)
 
 ### Data Collection and Sources
 
-This report utilizes secondary data sourced from *Kaggle*, a prominent open-source data repository. The dataset comprises one year of historical sales transactions from Dec 2018 to Dec 2019 from a UK-based online retailer. This organize headquartered in London, specializing in gifts and homewares for both adults and children.
+This report utilizes secondary data sourced from *Kaggle*, a prominent open-source data repository (@ramos_e-commerce_nodate). The dataset comprises one year of historical sales transactions from Dec 2018 to Dec 2019 from a UK-based online retailer. This retailer is headquartered in London, specializing in gifts and homewares for both adults and children.
 
 The business operates on a global scale and serves a dual customer base. Operations include **both direct-to-consumer (B2C) sales**, where individuals purchase for personal use, **and business-to-business (B2B) transactions**, where small businesses purchase items in bulk for retail distribution. Consequently, the transaction data is expected to exhibit diverse purchasing patterns, reflecting both individual consumer behavior and wholesale buying cycles.
 
-Structurally, the dataset contains **536,350 observations** and **8 variables**. The data grain is each record represent a specific product and its associated quantity within a distinct transaction.
+Structurally, the dataset contains **536,350 observations** and **8 variables**. Each record represents the quantity of a single product sold as part of a transaction; a transaction can have multiple products.
 
 ### About the Dataset
 
@@ -68,8 +64,7 @@ To ensure data integrity and facilitate robust analysis, the raw dataset underwe
 
 Following the deduplication and feature engineering phases, the final prepared dataset consists of 531,150 observations across 13 variables.
 
-```{r}
-## Data Cleaning
+```{r data-cleaning}
 
 sales_clean <- sales_data |>
   clean_names() |>
@@ -79,6 +74,8 @@ sales_clean <- sales_data |>
     year = year(date),
     month = month(date, label = TRUE),
     year_month = floor_date(date, "month"),
+
+    # flagging order cancellations
     transaction_type = if_else(
       quantity < 0 | str_starts(transaction_no, "C"),
       "Cancelled/Return",
