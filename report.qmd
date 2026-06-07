@@ -131,7 +131,7 @@ monthly_long <- sales_with_region |>
 ggplot(monthly_long, aes(x = year_month, y = value, fill = region)) +
   geom_col(alpha = 0.8) +
   facet_grid(metric ~ region, scales = "free_y") +
-  scale_x_date(date_labels = "%b\n%Y", date_breaks = "1 month") +
+  scale_x_date(date_labels = "%b\n%y", date_breaks = "1 month") +
   scale_y_continuous(labels = label_comma(accuracy = 0.1)) +
   scale_fill_manual(values = c("UK" = "#4C72B0", "Non-UK" = "#DD8453")) +
   labs(
