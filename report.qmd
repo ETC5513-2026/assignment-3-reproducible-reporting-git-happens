@@ -230,6 +230,17 @@ overview_table |>
 ```
 
 
+## Discussion and Conclusion and Recommendations
+
+The results show that the United Kingdom is the retailer’s main market, with 17,908 transactions compared with 1,882 transactions from Non-UK markets in @tbl-overview. The UK also generated much higher total revenue, showing that the business is strongly dependent on domestic sales. As shown in @fig-overview, both transactions and revenue increased sharply toward the end of 2019, especially in November, suggesting strong seasonal demand before Christmas.
+
+However, Non-UK markets should not be ignored. Although they have fewer transactions, their revenue per transaction appears higher than the UK, suggesting that some international customers may place larger-value orders. This means future decisions should not be based only on transaction volume.
+
+A key limitation is that December 2019 contains incomplete data, so the low values in that month should not be treated as a real decline. Also, while cancellations and returns were identified, the dataset does not explain why they occurred.
+
+Overall, the business should continue prioritising the UK market because it drives most sales activity. At the same time, the retailer should investigate Non-UK countries in more detail to identify high-value international markets with growth potential.
+
+
 ## References
 
 ---
