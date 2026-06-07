@@ -31,6 +31,16 @@ library(scales)
 library(kableExtra)
 ```
 
+## Introduction
+
+### Research Design and Purpose
+
+> **Purpose**: examine the sales performance of a UK-based online retail business over a 13-month period from December 2018 to December 2019.
+
+Specifically, the analysis investigates transaction volume and revenue trends over time, and evaluates whether performance differs between the United Kingdom and international markets.
+
+This study first adopts a descriptive analytical approach, utilising transactional records to summarise and visualise patterns in the data. Furthermore, further business insights are further investigated to identify key values that would inform future operational and marketing decisions.
+
 ```{r data-load}
 #| echo: false
 #| message: false
@@ -52,7 +62,7 @@ The business operates on a global scale and serves a dual customer base. Operati
 
 Structurally, the dataset contains **536,350 observations** and **8 variables**. Each record represents the quantity of a single product sold as part of a transaction; a transaction can have multiple products.
 
-### About the Dataset
+### Preparing Dataset for Analysis
 
 To ensure data integrity and facilitate robust analysis, the raw dataset underwent a systematic cleaning and transformation process. Initially, variable names were standardized for consistency, and exact duplicate records were identified and removed to prevent observation bias and the double-counting of revenue.
 
@@ -65,6 +75,12 @@ To ensure data integrity and facilitate robust analysis, the raw dataset underwe
 -   **Transaction Classification**: A `transaction_type` indicator was created to isolate legitimate sales from returns. Any record with a negative quantity or a transaction ID starting with **"C"** was flagged as a `Cancelled/Return`.
 
 Following the deduplication and feature engineering phases, the final prepared dataset consists of 531,150 observations across 13 variables.
+
+### Analysing Sales Trends over Time
+
+In order to identify trends in both number of transactions and total revenue for the UK and non-UK markets, all transactions in the dataset were first assigned one of these two regions. This allowed for the creation of @fig-overview, a collection of time-series plots for transactions and revenue divided by region.
+
+These plots allow for the easy visual identification of market trends across the 13-month period we have data for.
 
 ```{r data-cleaning}
 
@@ -86,22 +102,6 @@ sales_clean <- sales_data |>
   ) |> 
   distinct() # deduplication
 ```
-
-### Research Design and Purpose
-
-> **Purpose**: examine the sales performance of a UK-based online retail business over a 13-month period from December 2018 to December 2019.
-
-Specifically, the analysis investigates transaction volume and revenue trends over time, and evaluates whether performance differs between the United Kingdom and international markets.
-
-This study first adopts a descriptive analytical approach, utilising transactional records to summarise and visualise patterns in the data. Furthermore, further business insights are further investigated to identify key values that would inform future operational and marketing decisions.
-
-### Overview - Descriptive Analysis
-
-#### Number of orders and total Volume by month
-
-As presented in @fig-overview, The UK market consistently dominated both metrics throughout the period, where a pronounced upward trend is observed from September 2019 onwards, with transactions and revenue peaking in November 2019 at nearly 2500 orders and approximately £6.8M respectively, likely driven by seasonal demand ahead of the holiday period.
-
-The Non-UK market, while significantly smaller in absolute scale, demonstrated a gradual growth trajectory across 2019 with the upward trend merely mirror UK market. This suggests a slow but steady expansion of the international customer base.
 
 ```{r}
 #| fig-cap: "Monthly Transaction and Revenue in UK vs non-UK countries in 2018-2019 period"
@@ -150,6 +150,16 @@ ggplot(monthly_long, aes(x = year_month, y = value, fill = region)) +
     plot.subtitle    = element_text(colour = "grey40", size = 10)
   )
 ```
+
+## Results
+
+### Number of orders and total Volume by month
+
+As presented in @fig-overview, The UK market consistently dominated in both number of transactions and revenue throughout the recorded period. A pronounced upward trend is observed from September 2019 onwards, with transactions and revenue in the UK peaking in November 2019 at nearly 2500 orders and approximately £6.8M respectively, likely driven by seasonal demand ahead of the holiday period.
+
+The Non-UK market, while significantly smaller in absolute scale, demonstrated a gradual growth trajectory across 2019 with the upward trend merely mirror UK market. This suggests a slow but steady expansion of the international customer base.
+
+
 
 #### General Quantitative metrics
 
@@ -201,7 +211,7 @@ overview_table <- sales_with_region |>
       )
     )
   )
-  
+
 overview_table |>
   kable(
     align   = c("l", rep("r", 8))
