@@ -136,7 +136,7 @@ ggplot(monthly_long, aes(x = year_month, y = value, fill = region)) +
   scale_y_continuous(labels = label_comma(accuracy = 0.1)) +
   scale_fill_manual(values = c("UK" = "#4C72B0", "Non-UK" = "#DD8453")) +
   labs(
-    title    = "Figure 1. Monthly Transactions and Revenue: UK vs Non-UK",
+    title    = "Monthly Transactions and Revenue: UK vs Non-UK",
     subtitle = "Sales only  ·  Dec 2018 – Dec 2019",
     x = NULL, y = NULL
   ) +
@@ -228,6 +228,162 @@ overview_table |>
   row_spec(0, bold = TRUE, background = "#4C72B0", color = "white") |>
   column_spec(1, bold = TRUE)
 ```
+
+### Countries' basket value
+
+@fig-basket-value presents basket size statistics across top 10 countries with the biggest basket and the UK. Netherlands, Australia and Singapore recorded the highest mean basket values at £22888, £16055 and £15870 respectively. Notably, these countries achieved these values from a very small number of transactions, especially Singapore had only 4 transactions, this pattern could indicate wholesale or B2B purchasing behaviour rather than individual retail orders.
+
+```{r}
+#| fig-cap: "Metrics for Basket Size per transaction by country in 2018-2019 period"
+#| label: fig-basket-value
+
+basket_country <- sales_clean %>%
+  filter(transaction_type == "Sale") |> 
+  group_by(country, transaction_no) %>%
+  summarise(basket_value = sum(revenue, na.rm = TRUE), .groups = "drop") %>%
+  group_by(country) %>%
+  summarise(
+    `Transactions`           = n(),
+    `Mean Basket (£)`        = round(mean(basket_value), 2),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(`Mean Basket (£)`)) %>%
+  rename(Country = country)
+
+top10 <- basket_country %>% slice_max(`Mean Basket (£)`, n = 10)
+uk_row <- basket_country %>% filter(Country == "United Kingdom")
+
+bind_rows(top10, uk_row) %>%
+  distinct(Country, .keep_all = TRUE) %>%
+  mutate(
+    Country   = fct_reorder(Country, `Mean Basket (£)`),
+    highlight = case_when(
+      Country %in% c("Netherlands", "Australia", "Singapore") ~ "High-Value",
+      Country == "United Kingdom"                ~ "UK",
+      TRUE                                       ~ "Other"
+    )
+  ) %>%
+  pivot_longer(                                        # ← key change
+    cols     = c(`Mean Basket (£)`, `Transactions`),
+    names_to  = "metric",
+    values_to = "value"
+  ) %>%
+  ggplot(aes(x = value, y = Country, fill = highlight)) +
+  geom_col(alpha = 0.85) +
+  geom_text(
+    aes(label = ifelse(metric == "Mean Basket (£)",
+                       paste0("£", comma(round(value))),
+                       comma(value))),
+    hjust = -0.1, size = 3.2
+  ) +
+  scale_fill_manual(
+    values = c("High-Value" = "#e8a838",
+               "UK"         = "#4C72B0",
+               "Other"      = "#a8c4d4")
+  ) +
+  scale_x_continuous(
+    labels = label_comma(),
+    expand = expansion(mult = c(0, 0.25))
+  ) +
+  facet_wrap(~ metric, scales = "free_x") +           # ← free_x = each panel own scale
+  labs(
+    title    = "Mean Basket Size and Number of Transactions by Country",
+    subtitle = "Top 10 countries by basket size + UK as reference · Sales only · Dec 2018 – Dec 2019",
+    x        = NULL,
+    y        = NULL,
+    fill     = NULL
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(
+    legend.position    = "top",
+    strip.text         = element_text(face = "bold", size = 11),
+    strip.background   = element_rect(fill = "grey92", colour = NA),
+    plot.title         = element_text(face = "bold", size = 13),
+    panel.grid.major.y = element_blank()
+  )
+
+```
+
+### Cancelled orders insight
+
+@fig-cancellation shows that the USA has the highest cancellation rate at 29.63%, followed by Malta (9.4%) and Japan (9.16%), all well above the UK benchmark of 1.52%. However, despite its low rate, the UK incurs the largest revenue loss at £2509.3K due to its transaction number. Among Non-UK markets, EIRE (Ireland) records the highest revenue lost at £52.8K, making it the most financially impactful cancellation market outside the UK.
+
+```{r}
+#| fig-cap: "Cancellation rate and Revenue lost by each Country"
+#| label: fig-cancellation
+
+
+cancel_summary <- sales_clean %>%
+  group_by(country) %>%
+  summarise(
+    total        = n(),
+    cancelled    = sum(transaction_type == "Cancelled/Return"),
+    `Cancel Rate (%)` = round(cancelled / total * 100, 2),
+    `Revenue Lost (£K)` = round(abs(sum(
+      revenue[transaction_type == "Cancelled/Return"],
+      na.rm = TRUE)) / 1000, 1),
+    .groups = "drop"
+  ) %>%
+  filter(total > 100) %>%                             
+  arrange(desc(`Cancel Rate (%)`)) %>%
+  rename(Country = country) %>%
+  select(Country, `Cancel Rate (%)`, `Revenue Lost (£K)`)
+
+cancel_summary %>%
+  filter(`Cancel Rate (%)` > 0) |> 
+  mutate(
+    Country   = fct_reorder(Country, `Cancel Rate (%)`),
+    highlight = case_when(
+      Country == "United Kingdom"  ~ "UK",
+      `Cancel Rate (%)` > 3        ~ "High Risk",
+      TRUE                         ~ "Other"
+    )
+  ) %>%
+  pivot_longer(
+    cols      = c(`Cancel Rate (%)`, `Revenue Lost (£K)`),
+    names_to  = "metric",
+    values_to = "value"
+  ) %>%
+  ggplot(aes(x = value, y = Country, fill = highlight)) +
+  geom_col(alpha = 0.85) +
+  geom_text(
+    aes(label = ifelse(metric == "Cancel Rate (%)",
+                       paste0(value, "%"),
+                       paste0("£", value, "K"))),
+    hjust = -0.1, size = 3.2
+  ) +
+  scale_fill_manual(
+    values = c("High Risk" = "#C44E52",
+               "UK"        = "#4C72B0",
+               "Other"     = "#a8c4d4"),
+    labels = c("High Risk" = "High Risk (>3%)",
+               "UK"        = "United Kingdom",
+               "Other"     = "Other Countries")
+  ) +
+  scale_x_continuous(expand = expansion(mult = c(0, 0.3))) +
+  facet_wrap(~ metric, scales = "free_x") +
+  labs(
+    title   = "Cancellation Rate and Revenue Lost by Country",
+    subtitle = "Countries with fewer than 100 records excluded  ·  Dec 2018 – Dec 2019",
+    caption = "Source: Retail transactions dataset",
+    x       = NULL,
+    y       = NULL,
+    fill    = NULL
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(
+    legend.position    = "top",
+    strip.text         = element_text(face = "bold", size = 11),
+    strip.background   = element_rect(fill = "grey92", colour = NA),
+    plot.title         = element_text(face = "bold", size = 13),
+    plot.subtitle      = element_text(colour = "grey40", size = 9),
+    panel.grid.major.y = element_blank()
+  )
+
+```
+
+## Dicussion
+
 
 
 ## References
