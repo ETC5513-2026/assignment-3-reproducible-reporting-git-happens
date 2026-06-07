@@ -229,6 +229,57 @@ overview_table |>
   column_spec(1, bold = TRUE)
 ```
 
+```{r}
+#| label: fig-non-uk-figures
+#| fig-cap: "Transactions and Revenue for Non-UK Countries"
+
+transaction_summary <- sales_clean |>
+  group_by(transaction_no) |>
+  summarise(
+    transaction_revenue = sum(revenue),
+    country = first(country),
+    year_month = first(year_month),
+    .groups = "drop"
+  )
+
+country_summary <- sales_clean |>
+  group_by(country) |>
+  summarise(
+    Transactions = n_distinct(transaction_no),
+    Revenue = sum(revenue, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  mutate(
+    `Avg Revenue per Transaction (£)` = round(Revenue / Transactions, 2)
+  ) |>
+  arrange(desc(Revenue))
+
+country_summary <- sales_clean |>
+  filter(country != "United Kingdom") |>
+  group_by(country) |>
+  summarise(
+    Transactions = n_distinct(transaction_no),
+    Revenue = sum(revenue, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  pivot_longer(
+    cols = c(Transactions, Revenue),
+    names_to = "Metric",
+    values_to = "Value"
+  )
+
+country_summary |>
+  ggplot(aes(x = reorder(country, Value), y = Value)) +
+  geom_col() +
+  facet_wrap(~ Metric, scales = "free_x") +
+  coord_flip() +
+  labs(
+    x = "Country",
+    y = NULL
+  ) +
+  theme_minimal()
+```
+
 
 ## References
 
@@ -240,3 +291,6 @@ nocite: |
 ::: {#refs}
 
 :::
+
+
+
