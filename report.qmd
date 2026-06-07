@@ -234,7 +234,7 @@ overview_table |>
 
 ---
 nocite: |
-  @tidyverse-cite, @lubridate-cite, @knitr-cite, @janitor-cite, @scales-cite, @kableExtra-cite 
+  @tidyverse-cite, @lubridate-cite, @knitr-cite, @janitor-cite, @scales-cite, @kableExtra-cite, @renv-cite
 ---
 
 ::: {#refs}
