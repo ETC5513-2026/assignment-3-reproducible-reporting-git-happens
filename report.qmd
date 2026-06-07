@@ -38,7 +38,7 @@ library(kableExtra)
 
 ### Research Design and Purpose
 
-> **Purpose**: to cause problems during the merge. That's the actual goal of this entire report actually. Not just any problems, merge conflicts specifically for Aatish to solve. You're welcome Aatish xoxo
+> **Purpose**: to cause problems during the merge. That's the actual goal of this entire report actually. Not just any problems, merge conflicts specifically for Aatish to solve. You're welcome Aatish xoxo.
 
 Specifically, the analysis investigates transaction volume and revenue trends over time, and evaluates whether performance differs between the United Kingdom and international markets.
 
