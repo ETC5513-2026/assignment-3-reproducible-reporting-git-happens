@@ -384,6 +384,18 @@ cancel_summary %>%
 
 ## Dicussion
 
+The results indicates that this business is operationally strong in its domestic market but has significant untapped potential internationally.
+
+### General market is Seasonal
+The dominant Q4 seasonality observed in @fig-overview suggests the business is **heavily reliant on the festive season period** to drive annual performance. While this concentration generates strong peak revenue, it also **exposes the business to seasonal risk**.
+
+### High value international B2B market
+The basket size analysis in @fig-basket-value reveals a more complex international picture. Despite lower transaction volumes, most **Non-UK customers spend nearly exponentially more per order comparing to the UK**. Countries such as the Netherlands, Singapore, and Australia demonstrate average basket sizes of approximately £16000, mostly indicate that they belong to the **B2B customer segment**. Rather than casual retail consumers, these clients are bulk purchasers placing infrequent, high-value orders, making them disproportionately valuable relative to their transaction volume.
+
+### Barrier regarding international sales
+However, @fig-cancellation highlights a key operational challenge in international markets. The cancellation rate at the USA (29.6%), Japan (9.2%) and Germany (4.1%) all exceed the UK benchmark of 1.52%, suggesting that international fulfilment reliability remains inconsistent. While EIRE represents the largest Non-UK revenue loss at £52.8K, the high-rate markets like the USA likely reflect **demand uncertainty** or **logistics hindrance** rather than product dissatisfaction. 
+
+## Recommendation
 
 
 ## References
