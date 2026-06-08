@@ -11,9 +11,13 @@ format:
     incremental: true
     theme: serif
     css: style.css
+lightbox: true
 editor: visual
 ---
 
+```{r setup}
+library(knitr)
+```
 
 # Problem Introduction {.center-slide}
 
@@ -37,7 +41,7 @@ editor: visual
 | Final Dataset | 531,150 observations, 13 variables |
 | Key Variables | Transaction No., Product, Quantity, Price, Country, Date, Revenue |
 
-# Methodology  {.center}
+# Methodology  {.center-slide}
 
 ## Steps Taken
 
@@ -48,27 +52,70 @@ editor: visual
 | Market Segmentation | Categorised transactions into UK and Non-UK markets |
 | Analysis | Examined revenue, transaction volume, basket value and cancellations |
 
-# Results: UK vs International Performance
+# Results {.center-slide}
 
-(add image here : Results: UK vs International Performance) Key findings:
+## UK vs International Performance
 
-UK generated most transactions and revenue. Strong growth from September onwards. Peak performance in November 2019. International markets followed similar seasonal trends.
+:::: {.columns style='display: flex !important; height: 90%;'}
 
-# Results: Seasonal Trends
+::: {.column width="40%" style="font-size: 0.8em; display: flex; justify-content: center; align-items: center;"}
 
-Highest revenue in October–November. Holiday season drives performance. December likely incomplete in dataset. Business is highly seasonal.
+- UK generated most transactions and revenue. 
+- Strong growth from September onwards. 
+- Peak performance in November 2019. 
+- International markets followed similar seasonal trends.
+:::
 
-# Results: High-Value International Markets
+::: {.column width="60%" style='display: flex; justify-content: center; align-items: center;'}
 
--   These countries generated exceptionally high basket values despite relatively low transaction volumes.
+```{r}
+include_graphics("media/monthly_uk_nonuk.png")
+```
+
+:::
+
+::::
+
+
+## Seasonal Trends
+
+- Highest revenue in October–November. 
+- Holiday season drives performance. 
+- December 2019 likely incomplete in dataset. 
+- Business is highly seasonal.
+
+## High-Value International Markets
+
+:::: {.columns style='display: flex !important; height: 90%;'}
+
+::: {.column width="40%" style="font-size: 0.8em; display: flex; justify-content: center; align-items: center;"}
+
+-   Some countries generated exceptionally high basket values despite relatively low transaction volumes.
 -   This purchasing pattern is consistent with wholesale or business-to-business (B2B) customers.
 -   These markets represent potential opportunities for future international growth.
 
-## Results: Cancellation Analysis
+:::
 
-(Add image: "Cancellation Rate and Revenue Lost by Country")
+::: {.column width="60%" style='display: flex; justify-content: center; align-items: center;'}
 
-### Key Findings
+```{r}
+include_graphics("media/basket_size_plot.png")
+```
+
+:::
+
+::::
+
+## Cancellation Analysis
+
+::: {.center style = 'width: 80%'}
+
+```{r}
+include_graphics("media/cancel_summary_plot.png")
+```
+:::
+
+## Key Findings
 
 -   The United States recorded the highest cancellation rate at approximately 29.6%.
 
@@ -82,8 +129,18 @@ Highest revenue in October–November. Holiday season drives performance. Decemb
 
 -   Further investigation into the causes of cancellations is recommended before expanding operations in these markets.
 
-# Conclusions & Recommendations
+# Conclusions & Recommendations {.center-slide}
 
-Conclusion UK remains dominant market. International markets provide growth opportunities. Some countries show strong B2B potential. Operational issues must be addressed before expansion.
+## Conclusions
 
-Recommendations Reduce seasonal dependency. Develop dedicated B2B program. Improve international fulfilment processes.
+- The UK remains this retailers dominant market. 
+- International markets provide growth opportunities. 
+- Some countries show strong B2B potential. 
+- Operational issues must be addressed before expansion.
+
+## Recommendations  
+- Reduce seasonal dependency. 
+- Develop dedicated B2B program. 
+- Improve international fulfilment processes.
+
+# Thanks! {.center-slide}
