@@ -9,7 +9,7 @@ Group Members:
 
 ## Topic: Online Retail Sales Performance Analysis (2018–2019)
 
-- ETC5513 — Collaborative and Reproducible Practices - Assignment 3
+- ETC5513 - Collaborative and Reproducible Practices - Assignment 3
 
 - Authors: Alex Delamer, Duc Hoang, Aatish Prasad, Kishori Akola
 
@@ -55,4 +55,4 @@ This project analyses one year of transactional sales data from a UK-based onlin
 
 ## Data Source
 
-Kaggle — [E-commerce Business Transaction by Gabriel Ramos](https://www.kaggle.com/datasets/gabrielramos87/an-online-shop-business).
+Kaggle - [E-commerce Business Transaction by Gabriel Ramos](https://www.kaggle.com/datasets/gabrielramos87/an-online-shop-business).
