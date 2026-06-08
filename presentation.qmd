@@ -21,15 +21,17 @@ library(knitr)
 
 # Problem Introduction {.center-slide}
 
-## Research Questions 
-- How do transaction volume and revenue differ between UK and international markets? 
-- Are there international markets with strong growth potential? 
-- What operational challenges may limit international expansion?
+## Research Questions
 
-## Why It Matters 
-- Supports strategic growth decisions 
-- Identifies high-value customer segments 
-- Highlights operational risks affecting profitability
+-   How do transaction volume and revenue differ between UK and international markets?
+-   Are there international markets with strong growth potential?
+-   What operational challenges may limit international expansion?
+
+## Why It Matters
+
+-   Supports strategic growth decisions
+-   Identifies high-value customer segments
+-   Highlights operational risks affecting profitability
 
 ## Dataset Overview
 
@@ -41,12 +43,12 @@ library(knitr)
 | Final Dataset | 531,150 observations, 13 variables |
 | Key Variables | Transaction No., Product, Quantity, Price, Country, Date, Revenue |
 
-# Methodology  {.center-slide}
+# Methodology {.center-slide}
 
 ## Steps Taken
 
 | Stage | Actions |
-|------------------|------------------------------------------------------|
+|-------------------|-----------------------------------------------------|
 | Data Cleaning | Standardised variable names and removed duplicate records |
 | Feature Engineering | Created revenue, date components and transaction type variables |
 | Market Segmentation | Categorised transactions into UK and Non-UK markets |
@@ -56,55 +58,43 @@ library(knitr)
 
 ## UK vs International Performance
 
-:::: {.columns style='display: flex !important; height: 90%;'}
-
+::::: {.columns style="display: flex !important; height: 90%;"}
 ::: {.column width="40%" style="font-size: 0.8em; display: flex; justify-content: center; align-items: center;"}
-
-- UK generated most transactions and revenue. 
-- Strong growth from September onwards. 
-- Peak performance in November 2019. 
-- International markets followed similar seasonal trends.
+-   UK generated most transactions and revenue.
+-   Strong growth from September onwards.
+-   Peak performance in November 2019.
+-   International markets followed similar seasonal trends.
 :::
 
-::: {.column width="60%" style='display: flex; justify-content: center; align-items: center;'}
-
+::: {.column width="60%" style="display: flex; justify-content: center; align-items: center;"}
 ```{r}
 include_graphics("media/monthly_uk_nonuk.png")
 ```
-
 :::
-
-::::
-
+:::::
 
 ## Seasonal Trends
 
-- Highest revenue in October–November. 
-- Holiday season drives performance. 
-- December 2019 likely incomplete in dataset. 
-- Business is highly seasonal.
+-   Highest revenue in October–November.
+-   Holiday season drives performance.
+-   December 2019 likely incomplete in dataset.
+-   Business is highly seasonal.
 
 ## High-Value International Markets
 
-:::: {.columns style='display: flex !important; height: 90%;'}
-
+::::: {.columns style="display: flex !important; height: 90%;"}
 ::: {.column width="40%" style="font-size: 0.8em; display: flex; justify-content: center; align-items: center;"}
-
 -   Some countries generated exceptionally high basket values despite relatively low transaction volumes.
 -   This purchasing pattern is consistent with wholesale or business-to-business (B2B) customers.
 -   These markets represent potential opportunities for future international growth.
-
 :::
 
-::: {.column width="60%" style='display: flex; justify-content: center; align-items: center;'}
-
+::: {.column width="60%" style="display: flex; justify-content: center; align-items: center;"}
 ```{r}
 include_graphics("media/basket_size_plot.png")
 ```
-
 :::
-
-::::
+:::::
 
 ## Cancellation Analysis
 
@@ -113,6 +103,7 @@ include_graphics("media/basket_size_plot.png")
 ```{r}
 include_graphics("media/cancel_summary_plot.png")
 ```
+
 :::
 
 ## Key Findings
@@ -133,14 +124,15 @@ include_graphics("media/cancel_summary_plot.png")
 
 ## Conclusions
 
-- The UK remains this retailers dominant market. 
-- International markets provide growth opportunities. 
-- Some countries show strong B2B potential. 
-- Operational issues must be addressed before expansion.
+-   The UK remains this retailers dominant market.
+-   International markets provide growth opportunities.
+-   Some countries show strong B2B potential.
+-   Operational issues must be addressed before expansion.
 
-## Recommendations  
-- Reduce seasonal dependency. 
-- Develop dedicated B2B program. 
-- Improve international fulfilment processes.
+## Recommendations
+
+-   Reduce seasonal dependency.
+-   Develop dedicated B2B program.
+-   Improve international fulfilment processes.
 
 # Thanks! {.center-slide}
