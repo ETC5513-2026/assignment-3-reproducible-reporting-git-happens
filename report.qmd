@@ -506,7 +506,7 @@ However, @fig-cancellation highlights a key operational challenge in internation
 
 ## Conclusion
 
-Ultimately, we find that the vast majority of transaction activity originates in the United Kingdom, and therefore the retailer's primary focus should remain here. At the same time, there should be a concerted effort to develop the international markets and supply chain. In particular, the retailer should focus on expanding its B2B operations, as our analysis suggests that a significant portion of international revenue seems to stem from business customers ordering bulk orders.
+Ultimately, we find that the **vast majority** of transaction activity **originates in the United Kingdom**, and therefore the retailer's **primary focus** should remain here. At the same time, there should be a concerted effort to **develop the international markets and supply chain**. In particular, the retailer should focus on **expanding its B2B operations**, as our analysis suggests that a **significant portion** of international revenue seems to stem from **business customers ordering in bulk**.
 
 ## References
 
