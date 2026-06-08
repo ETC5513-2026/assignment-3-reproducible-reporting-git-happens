@@ -35,6 +35,8 @@ library(knitr)
 
 ## Dataset Overview
 
+::: {style = 'font-size: 0.9em;'}
+
 | Attribute | Description |
 |------------------------------------|------------------------------------|
 | Source | Kaggle Retail Transactions Dataset |
@@ -42,6 +44,7 @@ library(knitr)
 | Raw Dataset | 536,350 observations, 8 variables |
 | Final Dataset | 531,150 observations, 13 variables |
 | Key Variables | Transaction No., Product, Quantity, Price, Country, Date, Revenue |
+:::
 
 # Methodology {.center-slide}
 
