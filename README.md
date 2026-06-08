@@ -19,20 +19,23 @@ This project analyses one year of transactional sales data from a UK-based onlin
 
 ## Repository Structure
 
-├── data/                   # Raw and cleaned dataset
-├── media/                  # Images and media assets
-├── renv/                   # R package environment (managed by renv)
-├── report_files/           # Auto-generated report output files
-├── presentation_files/     # Auto-generated presentation output files
-├── report.qmd              # Main analysis report (Quarto source)
-├── report.html             # Rendered report
-├── presentation.qmd        # Presentation slides (Quarto source)
-├── presentation.html       # Rendered presentation
-├── references.bib          # Bibliography (APA 7)
-├── apa.csl                 # APA 7 citation style file
-├── style.css               # Custom styling
-├── renv.lock               # Package version lockfile
-└── .Rprofile               # renv autoloader
+| File / Folder | Description |
+|---|---|
+| `data/` | Raw dataset |
+| `media/` | Images  |
+| `renv/` | R package environment (managed by renv) |
+| `report_files/` | Auto-generated report output files |
+| `presentation_files/` | Auto-generated presentation output files |
+| `report.qmd` | Main analysis report (Quarto source) |
+| `report.html` | Rendered report |
+| `presentation.qmd` | Presentation slides (Quarto source) |
+| `presentation.html` | Rendered presentation |
+| `references.bib` | Bibliography (APA 7) |
+| `apa.csl` | APA 7 citation style file |
+| `style.css` | Custom styling |
+| `renv.lock` | Package version lockfile |
+| `.Rprofile` | renv autoloader |
+
 
 ## How to Run
 
