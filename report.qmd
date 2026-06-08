@@ -71,6 +71,36 @@ The business operates on a global scale and serves a dual customer base. Operati
 
 Structurally, the dataset contains **536,350 observations** and **8 variables**. Each record represents the quantity of a single product sold as part of a transaction; a transaction can have multiple products.
 
+```{r}
+#| tbl-cap: "Raw Dataset Variables Descriptions"
+#| label: tbl-raw-data
+
+
+tibble(
+  Variable = c("TransactionNo", "Date", "ProductNo", "ProductName", "Price", "Quantity", "CustomerNo", "Country"),
+  Type = c("Character", "Character", "Character", "Character", "Numeric", "Numeric", "Numeric", "Character"),
+  Description = c("Unique transaction identifier (prefix 'C' = cancellation)",
+                       "Date of transaction",
+                       "Unique product identifier",
+                       "Name of product sold",
+                       "Unit price in GBP (£)",
+                       "Units sold (negative values indicate returns)",
+                       "Unique customer identifier",
+                       "Country of the customer")
+) %>%
+  kable(
+    format  = "html",
+    align   = c("l", "l", "l")
+  ) %>%
+  kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed", "bordered"),
+    full_width        = TRUE,
+    font_size         = 13
+  ) %>%
+  row_spec(0, bold = TRUE, background = "#4C72B0", color = "white") %>%
+  column_spec(1, bold = TRUE, monospace = TRUE)
+```
+
 ### Preparing Dataset for Analysis
 
 To ensure data integrity and facilitate robust analysis, the raw dataset underwent a systematic cleaning and transformation process. Initially, variable names were standardized for consistency, and exact duplicate records were identified and removed to prevent observation bias and the double-counting of revenue.
@@ -301,9 +331,6 @@ overview_table |>
 
 
 ```
-
-
-
 
 
 ### Countries' basket value {#sec-basket-values}
