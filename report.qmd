@@ -57,15 +57,7 @@ Specifically, the analysis investigates transaction volume and revenue trends ov
 This study first adopts a descriptive analytical approach, utilising transactional records to summarise and visualise patterns in the data. Furthermore, further business insights are further investigated to identify key values that would inform future operational and marketing decisions.
 
 ```{r data-load}
-#| echo: false
-#| message: false
-#| results: false
-```
-
-```{r}
-## Data Loading
 sales_data <- read_csv("data/Sales Transaction v.4a.csv")
-
 ```
 
 ## Methodology
@@ -100,8 +92,8 @@ These plots allow for the easy visual identification of market trends across the
 
 
 
-```{r}
-## Data Cleaning
+```{r data-cleaning}
+
 sales_clean <- sales_data |>
   clean_names() |>
   mutate(
