@@ -33,6 +33,8 @@ This report analyses the retail transaction data of a UK based e-retailer sellin
 
 
 ```{r setup}
+renv::restore()
+
 library(tidyverse)
 library(lubridate)
 library(janitor)
@@ -476,7 +478,7 @@ However, @fig-cancellation highlights a key operational challenge in internation
 
 ---
 nocite: |
-  @tidyverse-cite, @lubridate-cite, @knitr-cite, @janitor-cite, @scales-cite, @kableExtra-cite 
+  @tidyverse-cite, @lubridate-cite, @knitr-cite, @janitor-cite, @scales-cite, @kableExtra-cite, @renv-cite
 ---
 
 ::: {#refs}
