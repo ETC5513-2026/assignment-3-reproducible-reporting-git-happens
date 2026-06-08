@@ -53,9 +53,11 @@ This report analyses the retail transaction data of a UK based e-retailer sellin
 
 > **Purpose**: examine the sales performance of a UK-based online retail business over a 13-month period from December 2018 to December 2019.
 
-Specifically, the analysis investigates transaction volume and revenue trends over time, and evaluates whether performance differs between the United Kingdom and international markets.
+Specifically, the analysis investigates transaction volume and revenue trends over time, and evaluates whether performance differs between the United Kingdom and international markets. 
 
-This study first adopts a descriptive analytical approach, utilising transactional records to summarise and visualise patterns in the data. Furthermore, further business insights are further investigated to identify key values that would inform future operational and marketing decisions.
+In order to perform these analyses, we first spent some time cleaning and manipulating the dataset, allowing us to more effectively group transactions by region, basket size and to examine cancellation rate across different countries.
+
+This study adopts a descriptive analytical approach, utilising transactional records to summarise and visualise patterns in the data. Examination of the metrics available to us allows us to make recommendations for the retailer, such as changes that could be made to reduce financial risk and to increase appeal to an overseas customer base.
 
 ```{r data-load}
 sales_data <- read_csv("data/Sales Transaction v.4a.csv")
@@ -65,11 +67,11 @@ sales_data <- read_csv("data/Sales Transaction v.4a.csv")
 
 ### Data Collection and Sources
 
-This report utilizes secondary data sourced from *Kaggle*, a prominent open-source data repository (@ramos_e-commerce_nodate). The dataset comprises one year of historical sales transactions from Dec 2018 to Dec 2019 from a UK-based online retailer. This retailer is headquartered in London, specializing in gifts and homewares for both adults and children.
+This report utilizes secondary data sourced from *Kaggle* (@ramos_e-commerce_nodate). The dataset comprises one year of historical sales transactions from Dec 2018 to Dec 2019 from a UK-based online retailer. This retailer is headquartered in London, specializing in gifts and homewares for both adults and children.
 
 The business operates on a global scale and serves a dual customer base. Operations include **both direct-to-consumer (B2C) sales**, where individuals purchase for personal use, **and business-to-business (B2B) transactions**, where small businesses purchase items in bulk for retail distribution. Consequently, the transaction data is expected to exhibit diverse purchasing patterns, reflecting both individual consumer behavior and wholesale buying cycles.
 
-Structurally, the dataset contains **536,350 observations** and **8 variables**. Each record represents the quantity of a single product sold as part of a transaction; a transaction can have multiple products.
+Structurally, the dataset contains **536,350 observations** and **8 variables**. @tbl-raw-data contains a description of these variables. Each record represents the quantity of a single product sold as part of a transaction; a transaction can have multiple products.
 
 ```{r}
 #| tbl-cap: "Raw Dataset Variables Descriptions"
@@ -101,7 +103,7 @@ tibble(
 
 ### Preparing Dataset for Analysis
 
-To ensure data integrity and facilitate robust analysis, the raw dataset underwent a systematic cleaning and transformation process. Initially, variable names were standardized for consistency, and exact duplicate records were identified and removed to prevent observation bias and the double-counting of revenue.
+The steps taken to prepare the data were:
 
 -   **Standardization & Deduplication**: Column headers were standardized, and duplicate records were removed from the dataset.
 
@@ -109,9 +111,9 @@ To ensure data integrity and facilitate robust analysis, the raw dataset underwe
 
 -   **Temporal Decomposition**: The original date string was parsed into a datetime format and decomposed into `year`, `month`, and `year_month` fields to facilitate seasonal and time-series analysis.
 
--   **Transaction Classification**: A `transaction_type` indicator was created to isolate legitimate sales from returns. Any record with a negative quantity or a transaction ID starting with **"C"** was flagged as a `Cancelled/Return`.
+-   **Transaction Classification**: A `transaction_type` indicator was created to isolate sales from returns. Any record with a negative quantity or a transaction ID starting with **"C"** was flagged as a `Cancelled/Return`.
 
-Following the deduplication and feature engineering phases, the final prepared dataset consists of 531,150 observations across 13 variables.
+Following these steps, the final prepared dataset consists of **531,150 observations** across **13 variables**.
 
 ### Analysing Sales Trends over Time
 
@@ -198,9 +200,9 @@ monthly_uk_nonuk
 
 ### Number of orders and total Volume by month
 
-As presented in @fig-overview, The UK market consistently dominated in both number of transactions and revenue throughout the recorded period. A pronounced upward trend is observed from September 2019 onwards, with transactions and revenue in the UK peaking in November 2019 at nearly 2500 orders and approximately £6.8M respectively, likely driven by seasonal demand ahead of the holiday period.
+As presented in @fig-overview, the UK remained the dominant market throughout the recorded period. An upward trend is observed from September 2019 onwards, with transactions and revenue in the UK peaking in November 2019 at nearly 2500 orders and approximately £6.8M, likely driven by seasonal demand ahead of the holiday period.
 
-The Non-UK market, while significantly smaller in absolute scale, demonstrated a gradual growth trajectory across 2019 with the upward trend merely mirror UK market. This suggests a slow but steady expansion of the international customer base.
+The Non-UK market also experienced an upward trend throughout 2019. This suggests a slow but steady expansion of the international customer base.
 
 @fig-non-uk-figures shows the top non-UK countries by revenue amount, and also hints at an interesting idea; that the retailer is performing very well in some countries despite relatively low numbers of transactions. This will be covered in more depth in @sec-basket-values.
 
@@ -266,7 +268,7 @@ As seen in @fig-overview, both the UK and Non-UK markets reached their peak tran
 
 Notably, Non-UK maximum revenue occurred in October 2019 (£1.37M) rather than November despite November having more transactions, suggesting a higher average basket value per order in October.
 
-The minimum values for both regions fall in December 2019 across all metrics. This might not be a genuine business downturn but rather a data artefact, as December 2019 represents an incomplete month in the dataset.
+An artefact of the data is that the minimum values for both regions fall in December 2019 across all metrics; this is not a finished month in the dataset.
 
 ```{r}
 #| tbl-cap: "Monthly Transaction and Revenue in UK vs non-UK countries in 2018-2019 period"
@@ -332,7 +334,9 @@ overview_table |>
 
 ### Countries' basket value {#sec-basket-values}
 
-@fig-basket-value presents basket size statistics across top 10 countries with the biggest basket and the UK. Netherlands, Australia and Singapore recorded the highest mean basket values at £22888, £16055 and £15870 respectively. Notably, these countries achieved these values from a very small number of transactions, especially Singapore had only 4 transactions, this pattern could indicate wholesale or B2B purchasing behaviour rather than individual retail orders.
+@fig-basket-value presents basket size statistics for 10 countries with the largest mean basket sizes and the UK. Netherlands, Australia and Singapore recorded the highest mean basket values at £22,888, £16,055 and £15,870 respectively. Notably, these countries achieved these values from a very small number of transactions. Singapore in particular had only 4 transactions!
+
+This pattern likely indicates majority wholesale or B2B purchasing behaviour rather than individual retail orders in these countries.
 
 ```{r}
 #| fig-cap: "Metrics for Basket Size per transaction by country in 2018-2019 period"
