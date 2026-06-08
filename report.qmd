@@ -22,10 +22,17 @@ execute:
   warning: false
   message: false
 ---
+
+
+::: {.callout-important}
+
+Please run `renv::restore()` in the R console before attempting to render this document.
+
+:::
+
+
 ```{r setup}
 #| output: false
-
-renv::restore()
 
 library(tidyverse)
 library(lubridate)
