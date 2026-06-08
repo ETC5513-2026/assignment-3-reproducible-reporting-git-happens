@@ -93,18 +93,18 @@ div.csl-indent {
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="header-section-number">4</span> Results</a>
   <ul class="collapse">
   <li><a href="#number-of-orders-and-total-volume-by-month" id="toc-number-of-orders-and-total-volume-by-month" class="nav-link" data-scroll-target="#number-of-orders-and-total-volume-by-month"><span class="header-section-number">4.1</span> Number of orders and total Volume by month</a></li>
-  <li><a href="#general-quantitative-metrics" id="toc-general-quantitative-metrics" class="nav-link" data-scroll-target="#general-quantitative-metrics"><span class="header-section-number">4.2</span> General Quantitative metrics</a></li>
-  <li><a href="#sec-basket-values" id="toc-sec-basket-values" class="nav-link" data-scroll-target="#sec-basket-values"><span class="header-section-number">4.3</span> Countries’ basket value</a></li>
-  <li><a href="#cancelled-orders-insight" id="toc-cancelled-orders-insight" class="nav-link" data-scroll-target="#cancelled-orders-insight"><span class="header-section-number">4.4</span> Cancelled orders insight</a></li>
+  <li><a href="#sec-basket-values" id="toc-sec-basket-values" class="nav-link" data-scroll-target="#sec-basket-values"><span class="header-section-number">4.2</span> Countries’ basket value</a></li>
+  <li><a href="#cancelled-orders-insight" id="toc-cancelled-orders-insight" class="nav-link" data-scroll-target="#cancelled-orders-insight"><span class="header-section-number">4.3</span> Cancelled orders insight</a></li>
   </ul></li>
-  <li><a href="#dicussion" id="toc-dicussion" class="nav-link" data-scroll-target="#dicussion"><span class="header-section-number">5</span> Dicussion</a>
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion"><span class="header-section-number">5</span> Discussion</a>
   <ul class="collapse">
   <li><a href="#general-market-is-seasonal" id="toc-general-market-is-seasonal" class="nav-link" data-scroll-target="#general-market-is-seasonal"><span class="header-section-number">5.1</span> General market is Seasonal</a></li>
   <li><a href="#high-value-international-b2b-market" id="toc-high-value-international-b2b-market" class="nav-link" data-scroll-target="#high-value-international-b2b-market"><span class="header-section-number">5.2</span> High value international B2B market</a></li>
   <li><a href="#barrier-regarding-international-sales" id="toc-barrier-regarding-international-sales" class="nav-link" data-scroll-target="#barrier-regarding-international-sales"><span class="header-section-number">5.3</span> Barrier regarding international sales</a></li>
   </ul></li>
   <li><a href="#recommendation" id="toc-recommendation" class="nav-link" data-scroll-target="#recommendation"><span class="header-section-number">6</span> Recommendation</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">7</span> References</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">7</span> Conclusion</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">8</span> References</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="report.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
@@ -169,16 +169,17 @@ Important
 <p><strong>Purpose</strong>: examine the sales performance of a UK-based online retail business over a 13-month period from December 2018 to December 2019.</p>
 </blockquote>
 <p>Specifically, the analysis investigates transaction volume and revenue trends over time, and evaluates whether performance differs between the United Kingdom and international markets.</p>
-<p>This study first adopts a descriptive analytical approach, utilising transactional records to summarise and visualise patterns in the data. Furthermore, further business insights are further investigated to identify key values that would inform future operational and marketing decisions.</p>
+<p>In order to perform these analyses, we first spent some time cleaning and manipulating the dataset, allowing us to more effectively group transactions by region, basket size and to examine cancellation rate across different countries.</p>
+<p>This study adopts a descriptive analytical approach, utilising transactional records to summarise and visualise patterns in the data. Examination of the metrics available to us allows us to make recommendations for the retailer, such as changes that could be made to reduce financial risk and to increase appeal to an overseas customer base.</p>
 </section>
 </section>
 <section id="methodology" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="methodology"><span class="header-section-number">3</span> Methodology</h2>
 <section id="data-collection-and-sources" class="level3" data-number="3.1">
 <h3 data-number="3.1" class="anchored" data-anchor-id="data-collection-and-sources"><span class="header-section-number">3.1</span> Data Collection and Sources</h3>
-<p>This report utilizes secondary data sourced from <em>Kaggle</em>, a prominent open-source data repository (<span class="citation" data-cites="ramos_e-commerce_nodate">Ramos (<a href="#ref-ramos_e-commerce_nodate" role="doc-biblioref">n.d.</a>)</span>). The dataset comprises one year of historical sales transactions from Dec 2018 to Dec 2019 from a UK-based online retailer. This retailer is headquartered in London, specializing in gifts and homewares for both adults and children.</p>
+<p>This report utilizes secondary data sourced from <em>Kaggle</em> (<span class="citation" data-cites="ramos_e-commerce_nodate">Ramos (<a href="#ref-ramos_e-commerce_nodate" role="doc-biblioref">n.d.</a>)</span>). The dataset comprises one year of historical sales transactions from Dec 2018 to Dec 2019 from a UK-based online retailer. This retailer is headquartered in London, specializing in gifts and homewares for both adults and children.</p>
 <p>The business operates on a global scale and serves a dual customer base. Operations include <strong>both direct-to-consumer (B2C) sales</strong>, where individuals purchase for personal use, <strong>and business-to-business (B2B) transactions</strong>, where small businesses purchase items in bulk for retail distribution. Consequently, the transaction data is expected to exhibit diverse purchasing patterns, reflecting both individual consumer behavior and wholesale buying cycles.</p>
-<p>Structurally, the dataset contains <strong>536,350 observations</strong> and <strong>8 variables</strong>. Each record represents the quantity of a single product sold as part of a transaction; a transaction can have multiple products.</p>
+<p>Structurally, the dataset contains <strong>536,350 observations</strong> and <strong>8 variables</strong>. <a href="#tbl-raw-data" class="quarto-xref">Table&nbsp;1</a> contains a description of these variables. Each record represents the quantity of a single product sold as part of a transaction; a transaction can have multiple products.</p>
 <div class="cell">
 <div id="tbl-raw-data" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -246,62 +247,18 @@ Table&nbsp;1: Raw Dataset Variables Descriptions
 </section>
 <section id="preparing-dataset-for-analysis" class="level3" data-number="3.2">
 <h3 data-number="3.2" class="anchored" data-anchor-id="preparing-dataset-for-analysis"><span class="header-section-number">3.2</span> Preparing Dataset for Analysis</h3>
-<p>To ensure data integrity and facilitate robust analysis, the raw dataset underwent a systematic cleaning and transformation process. Initially, variable names were standardized for consistency, and exact duplicate records were identified and removed to prevent observation bias and the double-counting of revenue.</p>
+<p>The steps taken to prepare the data were:</p>
 <ul>
 <li><p><strong>Standardization &amp; Deduplication</strong>: Column headers were standardized, and duplicate records were removed from the dataset.</p></li>
 <li><p><strong>Financial Feature Engineering</strong>: A discrete <code>revenue</code> variable was calculated for each line item (Price × Quantity).</p></li>
 <li><p><strong>Temporal Decomposition</strong>: The original date string was parsed into a datetime format and decomposed into <code>year</code>, <code>month</code>, and <code>year_month</code> fields to facilitate seasonal and time-series analysis.</p></li>
-<li><p><strong>Transaction Classification</strong>: A <code>transaction_type</code> indicator was created to isolate legitimate sales from returns. Any record with a negative quantity or a transaction ID starting with <strong>“C”</strong> was flagged as a <code>Cancelled/Return</code>.</p></li>
+<li><p><strong>Transaction Classification</strong>: A <code>transaction_type</code> indicator was created to isolate sales from returns. Any record with a negative quantity or a transaction ID starting with <strong>“C”</strong> was flagged as a <code>Cancelled/Return</code>.</p></li>
 </ul>
-<p>Following the deduplication and feature engineering phases, the final prepared dataset consists of 531,150 observations across 13 variables.</p>
+<p>Following these steps, the final prepared dataset consists of <strong>531,150 observations</strong> across <strong>13 variables</strong>.</p>
 </section>
 <section id="analysing-sales-trends-over-time" class="level3" data-number="3.3">
 <h3 data-number="3.3" class="anchored" data-anchor-id="analysing-sales-trends-over-time"><span class="header-section-number">3.3</span> Analysing Sales Trends over Time</h3>
-<p>In order to identify trends in both number of transactions and total revenue for the UK and non-UK markets, all transactions in the dataset were first assigned one of these two regions. This allowed for the creation of <a href="#fig-overview" class="quarto-xref">Figure&nbsp;1</a>, a collection of time-series plots for transactions and revenue divided by region.</p>
-<p>These plots allow for the easy visual identification of market trends across the 13-month period we have data for.</p>
-<div class="cell">
-<div class="cell-output-display">
-<div id="fig-overview" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="report_files/figure-html/fig-overview-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Monthly Transaction and Revenue in UK vs non-UK countries in 2018-2019 period"><img src="report_files/figure-html/fig-overview-1.png" class="img-fluid figure-img" width="672"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Monthly Transaction and Revenue in UK vs non-UK countries in 2018-2019 period
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="results" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="results"><span class="header-section-number">4</span> Results</h2>
-<section id="number-of-orders-and-total-volume-by-month" class="level3" data-number="4.1">
-<h3 data-number="4.1" class="anchored" data-anchor-id="number-of-orders-and-total-volume-by-month"><span class="header-section-number">4.1</span> Number of orders and total Volume by month</h3>
-<p>As presented in <a href="#fig-overview" class="quarto-xref">Figure&nbsp;1</a>, The UK market consistently dominated in both number of transactions and revenue throughout the recorded period. A pronounced upward trend is observed from September 2019 onwards, with transactions and revenue in the UK peaking in November 2019 at nearly 2500 orders and approximately £6.8M respectively, likely driven by seasonal demand ahead of the holiday period.</p>
-<p>The Non-UK market, while significantly smaller in absolute scale, demonstrated a gradual growth trajectory across 2019 with the upward trend merely mirror UK market. This suggests a slow but steady expansion of the international customer base.</p>
-<p><a href="#fig-non-uk-figures" class="quarto-xref">Figure&nbsp;2</a> shows the top non-UK countries by revenue amount, and also hints at an interesting idea; that the retailer is performing very well in some countries despite relatively low numbers of transactions. This will be covered in more depth in <a href="#sec-basket-values" class="quarto-xref">Section&nbsp;4.3</a>.</p>
-<div class="cell">
-<div class="cell-output-display">
-<div id="fig-non-uk-figures" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-non-uk-figures-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="report_files/figure-html/fig-non-uk-figures-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Transactions and Revenue for Non-UK Countries"><img src="report_files/figure-html/fig-non-uk-figures-1.png" class="img-fluid figure-img" width="672"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-non-uk-figures-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Transactions and Revenue for Non-UK Countries
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="general-quantitative-metrics" class="level3" data-number="4.2">
-<h3 data-number="4.2" class="anchored" data-anchor-id="general-quantitative-metrics"><span class="header-section-number">4.2</span> General Quantitative metrics</h3>
-<p>As seen in <a href="#fig-overview" class="quarto-xref">Figure&nbsp;1</a>, both the UK and Non-UK markets reached their peak transaction volumes and revenue towards the end of 2019. Referencing <a href="#tbl-overview" class="quarto-xref">Table&nbsp;2</a>, the UK reached 2487 transactions and £6.81M in revenue in November 2019, while Non-UK countries peaked at 266 transactions in the same month. This Q4 surge is consistent with seasonal holidays like Christmas and New Year.</p>
-<p>Notably, Non-UK maximum revenue occurred in October 2019 (£1.37M) rather than November despite November having more transactions, suggesting a higher average basket value per order in October.</p>
-<p>The minimum values for both regions fall in December 2019 across all metrics. This might not be a genuine business downturn but rather a data artefact, as December 2019 represents an incomplete month in the dataset.</p>
+<p>In order to identify trends in both number of transactions and total revenue for the UK and non-UK markets, all transactions in the dataset were first assigned one of these two regions. <a href="#tbl-overview" class="quarto-xref">Table&nbsp;2</a> is a look at some of the summary statistics for both regions.</p>
 <div class="cell">
 <div id="tbl-overview" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -377,10 +334,49 @@ Region
 </figure>
 </div>
 </div>
+<p><a href="#fig-overview" class="quarto-xref">Figure&nbsp;1</a> allows for the easy visual identification of market trends across the 13-month period we have data for.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-overview" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="report_files/figure-html/fig-overview-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Monthly Transaction and Revenue in UK vs non-UK countries in 2018-2019 period"><img src="report_files/figure-html/fig-overview-1.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Monthly Transaction and Revenue in UK vs non-UK countries in 2018-2019 period
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section id="sec-basket-values" class="level3" data-number="4.3">
-<h3 data-number="4.3" class="anchored" data-anchor-id="sec-basket-values"><span class="header-section-number">4.3</span> Countries’ basket value</h3>
-<p><a href="#fig-basket-value" class="quarto-xref">Figure&nbsp;3</a> presents basket size statistics across top 10 countries with the biggest basket and the UK. Netherlands, Australia and Singapore recorded the highest mean basket values at £22888, £16055 and £15870 respectively. Notably, these countries achieved these values from a very small number of transactions, especially Singapore had only 4 transactions, this pattern could indicate wholesale or B2B purchasing behaviour rather than individual retail orders.</p>
+</section>
+<section id="results" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="results"><span class="header-section-number">4</span> Results</h2>
+<section id="number-of-orders-and-total-volume-by-month" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="number-of-orders-and-total-volume-by-month"><span class="header-section-number">4.1</span> Number of orders and total Volume by month</h3>
+<p>As presented in <a href="#fig-overview" class="quarto-xref">Figure&nbsp;1</a>, the UK remained the dominant market throughout the recorded period. An upward trend is observed from September 2019 onwards, with transactions and revenue in the UK peaking in November 2019 at nearly 2500 orders and approximately £6.8M, likely driven by seasonal demand ahead of the holiday period.</p>
+<p>The Non-UK market also experienced an upward trend throughout 2019. This suggests a slow but steady expansion of the international customer base.</p>
+<p><a href="#fig-non-uk-figures" class="quarto-xref">Figure&nbsp;2</a> shows the top non-UK countries by revenue amount, and also hints at an interesting idea; that the retailer is performing very well in some countries despite relatively low numbers of transactions. This will be covered in more depth in <a href="#sec-basket-values" class="quarto-xref">Section&nbsp;4.2</a>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-non-uk-figures" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-non-uk-figures-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="report_files/figure-html/fig-non-uk-figures-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Transactions and Revenue for Non-UK Countries"><img src="report_files/figure-html/fig-non-uk-figures-1.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-non-uk-figures-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Transactions and Revenue for Non-UK Countries
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-basket-values" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="sec-basket-values"><span class="header-section-number">4.2</span> Countries’ basket value</h3>
+<p><a href="#fig-basket-value" class="quarto-xref">Figure&nbsp;3</a> presents basket size statistics for 10 countries with the largest mean basket sizes and the UK. Netherlands, Australia and Singapore recorded the highest mean basket values at £22,888, £16,055 and £15,870 respectively. Notably, these countries achieved these values from a very small number of transactions. Singapore in particular had only 4 transactions!</p>
+<p>This pattern likely indicates majority wholesale or B2B purchasing behaviour rather than individual retail orders in these countries.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-basket-value" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -396,8 +392,8 @@ Figure&nbsp;3: Metrics for Basket Size per transaction by country in 2018-2019 p
 </div>
 </div>
 </section>
-<section id="cancelled-orders-insight" class="level3" data-number="4.4">
-<h3 data-number="4.4" class="anchored" data-anchor-id="cancelled-orders-insight"><span class="header-section-number">4.4</span> Cancelled orders insight</h3>
+<section id="cancelled-orders-insight" class="level3" data-number="4.3">
+<h3 data-number="4.3" class="anchored" data-anchor-id="cancelled-orders-insight"><span class="header-section-number">4.3</span> Cancelled orders insight</h3>
 <p><a href="#fig-cancellation" class="quarto-xref">Figure&nbsp;4</a> shows that the USA has the highest cancellation rate at 29.63%, followed by Malta (9.4%) and Japan (9.16%), all well above the UK benchmark of 1.52%. However, despite its low rate, the UK incurs the largest revenue loss at £2509.3K due to its transaction number. Among Non-UK markets, EIRE (Ireland) records the highest revenue lost at £52.8K, making it the most financially impactful cancellation market outside the UK.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -415,8 +411,8 @@ Figure&nbsp;4: Cancellation rate and Revenue lost by each Country
 </div>
 </section>
 </section>
-<section id="dicussion" class="level2" data-number="5">
-<h2 data-number="5" class="anchored" data-anchor-id="dicussion"><span class="header-section-number">5</span> Dicussion</h2>
+<section id="discussion" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="discussion"><span class="header-section-number">5</span> Discussion</h2>
 <p>The results indicates that this business is operationally strong in its domestic market but has significant untapped potential internationally.</p>
 <section id="general-market-is-seasonal" class="level3" data-number="5.1">
 <h3 data-number="5.1" class="anchored" data-anchor-id="general-market-is-seasonal"><span class="header-section-number">5.1</span> General market is Seasonal</h3>
@@ -428,17 +424,21 @@ Figure&nbsp;4: Cancellation rate and Revenue lost by each Country
 </section>
 <section id="barrier-regarding-international-sales" class="level3" data-number="5.3">
 <h3 data-number="5.3" class="anchored" data-anchor-id="barrier-regarding-international-sales"><span class="header-section-number">5.3</span> Barrier regarding international sales</h3>
-<p>However, <a href="#fig-cancellation" class="quarto-xref">Figure&nbsp;4</a> highlights a key operational challenge in international markets. The cancellation rate at the USA (29.6%), Japan (9.2%) and Germany (4.1%) all exceed the UK benchmark of 1.52%, suggesting that international fulfilment reliability remains inconsistent. While EIRE represents the largest Non-UK revenue loss at £52.8K, the high-rate markets like the USA likely reflect <strong>demand uncertainty</strong> or <strong>logistics hindrance</strong> rather than product dissatisfaction.</p>
+<p>However, <a href="#fig-cancellation" class="quarto-xref">Figure&nbsp;4</a> highlights a key operational challenge in international markets. The cancellation rate at the USA (29.6%), Japan (9.2%) and Germany (4.1%) all exceed the UK benchmark of 1.52%, suggesting that international fulfillment reliability remains inconsistent. While EIRE represents the largest Non-UK revenue loss at £52.8K, the high-rate markets like the USA likely reflect <strong>demand uncertainty</strong> or <strong>logistics hindrance</strong> rather than product dissatisfaction.</p>
 </section>
 </section>
 <section id="recommendation" class="level2" data-number="6">
 <h2 data-number="6" class="anchored" data-anchor-id="recommendation"><span class="header-section-number">6</span> Recommendation</h2>
 <p><strong>Reduce seasonal dependency:</strong> The business should invest in mid-year promotional campaigns, particularly in months of February and April while they showed the modest number, to reduce the financial risk of a single underperforming holiday season.</p>
 <p><strong>Formalise and grow the international wholesale channel:</strong> The high basket sizes recorded in the Netherlands, Australia and Singapore signal an existing wholesale customer base. Rather than treating these as ordinary transactions, the business should <em>develop a dedicated B2B programme with volume-based pricing, account management and tailored outreach</em>.</p>
-<p><strong>Address international fulfilment gaps before scaling:</strong> The elevated cancellation rates in some countries suggest that the operational infrastructure for international orders is not yet mature. Before investing further in these markets, the business should investigate the <em>root causes of cancellations: whether driven by shipping delays, product mismatches, or payment friction</em>. The Netherlands, with a near-zero cancellation rate of 0.17%, offers a useful operational benchmark for what reliable international fulfilment looks like.</p>
+<p><strong>Address international fulfillment gaps before scaling:</strong> The elevated cancellation rates in some countries suggest that the operational infrastructure for international orders is not yet mature. Before investing further in these markets, the business should investigate the <em>root causes of cancellations: whether driven by shipping delays, product mismatches, or payment friction</em>. The Netherlands, with a near-zero cancellation rate of 0.17%, offers a useful operational benchmark for what reliable international fulfillment looks like.</p>
 </section>
-<section id="references" class="level2" data-number="7">
-<h2 data-number="7" class="anchored" data-anchor-id="references"><span class="header-section-number">7</span> References</h2>
+<section id="conclusion" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">7</span> Conclusion</h2>
+<p>Ultimately, we find that the <strong>vast majority</strong> of transaction activity <strong>originates in the United Kingdom</strong>, and therefore the retailer’s <strong>primary focus</strong> should remain here. At the same time, there should be a concerted effort to <strong>develop the international markets and supply chain</strong>. In particular, the retailer should focus on <strong>expanding its B2B operations</strong>, as our analysis suggests that a <strong>significant portion</strong> of international revenue seems to stem from <strong>business customers ordering in bulk</strong>.</p>
+</section>
+<section id="references" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="references"><span class="header-section-number">8</span> References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
 <div id="ref-janitor-cite" class="csl-entry" role="listitem">
 Firke, S. (2024). <em>Janitor: Simple tools for examining and cleaning dirty data</em>. <a href="https://doi.org/10.32614/CRAN.package.janitor">https://doi.org/10.32614/CRAN.package.janitor</a>

@@ -248,7 +248,7 @@ monthly_uk_nonuk <- ggplot(monthly_long, aes(x = year_month, y = value, fill = r
     plot.subtitle    = element_text(colour = "grey40", size = 10)
   )
 
-ggsave(monthly_uk_nonuk, filename = "media/monthly_uk_nonuk.png")
+ggsave(monthly_uk_nonuk, filename = "media/monthly_uk_nonuk.png", height = 2400, width = 3600, units = "px")
 
 monthly_uk_nonuk
 ```
@@ -314,7 +314,7 @@ country_summary_plot <- country_summary |>
   ) +
   theme_minimal()
 
-ggsave(country_summary_plot, filename = "media/country_summary_plot.png")
+ggsave(country_summary_plot, filename = "media/country_summary_plot.png", height = 2400, width = 3600, units = "px")
 
 country_summary_plot
 ```
@@ -395,7 +395,7 @@ basket_size_plot <- bind_rows(top10, uk_row) |>
     panel.grid.major.y = element_blank()
   )
 
-ggsave(basket_size_plot, filename = "media/basket_size_plot.png")
+ggsave(basket_size_plot, filename = "media/basket_size_plot.png", height = 2400, width = 3600, units = "px")
 
 basket_size_plot
 ```
@@ -476,7 +476,7 @@ cancel_summary_plot <- cancel_summary |>
     panel.grid.major.y = element_blank()
   )
 
-ggsave(cancel_summary_plot, filename = "media/cancel_summary_plot.png")
+ggsave(cancel_summary_plot, filename = "media/cancel_summary_plot.png", height = 2400, width = 3600, units = "px")
 
 cancel_summary_plot
 ```

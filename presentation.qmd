@@ -48,7 +48,7 @@ library(knitr)
 ## Steps Taken
 
 | Stage | Actions |
-|-------------------|-----------------------------------------------------|
+|--------------------|----------------------------------------------------|
 | Data Cleaning | Standardised variable names and removed duplicate records |
 | Feature Engineering | Created revenue, date components and transaction type variables |
 | Market Segmentation | Categorised transactions into UK and Non-UK markets |
@@ -106,7 +106,9 @@ include_graphics("media/cancel_summary_plot.png")
 
 :::
 
-## Key Findings
+## Key Findings 
+
+::: {style = 'font-size: 0.8em;'}
 
 -   The United States recorded the highest cancellation rate at approximately 29.6%.
 
@@ -119,6 +121,8 @@ include_graphics("media/cancel_summary_plot.png")
 -   This suggests potential challenges in international order fulfilment, logistics, or customer demand management.
 
 -   Further investigation into the causes of cancellations is recommended before expanding operations in these markets.
+
+:::
 
 # Conclusions & Recommendations {.center-slide}
 
