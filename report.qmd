@@ -119,9 +119,43 @@ Following these steps, the final prepared dataset consists of **531,150 observat
 
 In order to identify trends in both number of transactions and total revenue for the UK and non-UK markets, all transactions in the dataset were first assigned one of these two regions. @tbl-overview is a look at some of the summary statistics for both regions.
 
+
+
+
+
+
+```{r data-cleaning}
+
+sales_clean <- sales_data |>
+  clean_names() |>
+  mutate(
+    date = mdy(date),
+    revenue = price * quantity,
+    year = year(date),
+    month = month(date, label = TRUE),
+    year_month = floor_date(date, "month"),
+    # flagging order cancellations
+    transaction_type = if_else(
+      quantity < 0 | str_starts(transaction_no, "C"),
+      "Cancelled/Return",
+      "Sale"
+    )
+  ) |> 
+  distinct() # deduplication
+
+```
+
 ```{r}
 #| tbl-cap: "Monthly Transaction and Revenue in UK vs non-UK countries in 2018-2019 period"
 #| label: tbl-overview
+
+sales_with_region <- sales_clean |>
+  filter(transaction_type == "Sale") |>
+  mutate(
+    region     = ifelse(country == "United Kingdom", "UK", "Non-UK"),
+    year_month = as.Date(year_month)
+  )
+
 
 overview_table <- sales_with_region |> 
   group_by(year_month, region) |>
@@ -180,41 +214,11 @@ overview_table |>
   column_spec(1, bold = TRUE)
 ```
 
-
 @fig-overview allows for the easy visual identification of market trends across the 13-month period we have data for.
-
-```{r data-cleaning}
-
-sales_clean <- sales_data |>
-  clean_names() |>
-  mutate(
-    date = mdy(date),
-    revenue = price * quantity,
-    year = year(date),
-    month = month(date, label = TRUE),
-    year_month = floor_date(date, "month"),
-    # flagging order cancellations
-    transaction_type = if_else(
-      quantity < 0 | str_starts(transaction_no, "C"),
-      "Cancelled/Return",
-      "Sale"
-    )
-  ) |> 
-  distinct() # deduplication
-
-```
-
 
 ```{r}
 #| fig-cap: "Monthly Transaction and Revenue in UK vs non-UK countries in 2018-2019 period"
 #| label: fig-overview
-
-sales_with_region <- sales_clean |>
-  filter(transaction_type == "Sale") |>
-  mutate(
-    region     = ifelse(country == "United Kingdom", "UK", "Non-UK"),
-    year_month = as.Date(year_month)
-  )
 
 monthly_long <- sales_with_region |>
   group_by(year_month, region) |>
