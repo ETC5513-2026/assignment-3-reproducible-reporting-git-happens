@@ -167,6 +167,63 @@ As presented in @fig-overview, The UK market consistently dominated in both numb
 
 The Non-UK market, while significantly smaller in absolute scale, demonstrated a gradual growth trajectory across 2019 with the upward trend merely mirror UK market. This suggests a slow but steady expansion of the international customer base.
 
+@fig-non-uk-figures shows the top non-UK countries by revenue amount, and also hints at an interesting idea; that the retailer is performing very well in some countries despite relatively low numbers of transactions. This will be covered in more depth in @sec-basket-values.
+
+```{r}
+#| label: fig-non-uk-figures
+#| fig-cap: "Transactions and Revenue for Non-UK Countries"
+
+transaction_summary <- sales_clean |>
+  group_by(transaction_no) |>
+  summarise(
+    transaction_revenue = sum(revenue),
+    country = first(country),
+    year_month = first(year_month),
+    .groups = "drop"
+  )
+
+country_summary <- sales_clean |>
+  group_by(country) |>
+  summarise(
+    Transactions = n_distinct(transaction_no),
+    Revenue = sum(revenue, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  mutate(
+    `Avg Revenue per Transaction (£)` = round(Revenue / Transactions, 2)
+  ) |>
+  arrange(desc(Revenue))
+
+country_summary <- sales_clean |>
+  filter(country != "United Kingdom") |>
+  group_by(country) |>
+  summarise(
+    Transactions = n_distinct(transaction_no),
+    Revenue = sum(revenue, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  pivot_longer(
+    cols = c(Transactions, Revenue),
+    names_to = "Metric",
+    values_to = "Value"
+  )
+
+country_summary_plot <- country_summary |>
+  ggplot(aes(x = reorder(country, Value), y = Value)) +
+  geom_col() +
+  facet_wrap(~ Metric, scales = "free_x") +
+  coord_flip() +
+  labs(
+    x = "Country",
+    y = NULL
+  ) +
+  theme_minimal()
+
+ggsave(country_summary_plot, filename = "media/country_summary_plot.png")
+
+country_summary_plot
+```
+
 ### General Quantitative metrics
 
 As seen in @fig-overview, both the UK and Non-UK markets reached their peak transaction volumes and revenue towards the end of 2019. Referencing @tbl-overview, the UK reached 2487 transactions and £6.81M in revenue in November 2019, while Non-UK countries peaked at 266 transactions in the same month. This Q4 surge is consistent with seasonal holidays like Christmas and New Year.
@@ -240,62 +297,9 @@ overview_table |>
 
 
 
-```{r}
-#| label: fig-non-uk-figures
-#| fig-cap: "Transactions and Revenue for Non-UK Countries"
 
-transaction_summary <- sales_clean |>
-  group_by(transaction_no) |>
-  summarise(
-    transaction_revenue = sum(revenue),
-    country = first(country),
-    year_month = first(year_month),
-    .groups = "drop"
-  )
 
-country_summary <- sales_clean |>
-  group_by(country) |>
-  summarise(
-    Transactions = n_distinct(transaction_no),
-    Revenue = sum(revenue, na.rm = TRUE),
-    .groups = "drop"
-  ) |>
-  mutate(
-    `Avg Revenue per Transaction (£)` = round(Revenue / Transactions, 2)
-  ) |>
-  arrange(desc(Revenue))
-
-country_summary <- sales_clean |>
-  filter(country != "United Kingdom") |>
-  group_by(country) |>
-  summarise(
-    Transactions = n_distinct(transaction_no),
-    Revenue = sum(revenue, na.rm = TRUE),
-    .groups = "drop"
-  ) |>
-  pivot_longer(
-    cols = c(Transactions, Revenue),
-    names_to = "Metric",
-    values_to = "Value"
-  )
-
-country_summary_plot <- country_summary |>
-  ggplot(aes(x = reorder(country, Value), y = Value)) +
-  geom_col() +
-  facet_wrap(~ Metric, scales = "free_x") +
-  coord_flip() +
-  labs(
-    x = "Country",
-    y = NULL
-  ) +
-  theme_minimal()
-
-ggsave(country_summary_plot, filename = "media/country_summary_plot.png")
-
-country_summary_plot
-```
-
-### Countries' basket value
+### Countries' basket value {#sec-basket-values}
 
 @fig-basket-value presents basket size statistics across top 10 countries with the biggest basket and the UK. Netherlands, Australia and Singapore recorded the highest mean basket values at £22888, £16055 and £15870 respectively. Notably, these countries achieved these values from a very small number of transactions, especially Singapore had only 4 transactions, this pattern could indicate wholesale or B2B purchasing behaviour rather than individual retail orders.
 
