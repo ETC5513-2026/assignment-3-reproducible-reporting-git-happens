@@ -89,12 +89,10 @@ tibble(
                        "Country of the customer")
 ) %>%
   kable(
-    format  = "html",
     align   = c("l", "l", "l")
   ) %>%
   kable_styling(
     bootstrap_options = c("striped", "hover", "condensed", "bordered"),
-    full_width        = TRUE,
     font_size         = 13
   ) %>%
   row_spec(0, bold = TRUE, background = "#4C72B0", color = "white") %>%
