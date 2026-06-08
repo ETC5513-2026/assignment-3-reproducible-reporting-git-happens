@@ -1,70 +1,68 @@
 ---
-title: "Retail Sales Performance Analysis: UK vs International Markets"
+title: "Retail Sales Performance Analysis"
+subtitle: "UK vs International Markets"
 author: 
   - "Alex Delamer"
   - "Duc Hoang"
   - "Aatish Prasad"
   - "Kishori Akola"
-format: revealjs
+format: 
+  revealjs:
+    incremental: true
+    theme: serif
+    css: style.css
 editor: visual
 ---
 
 
-# Problem Introduction
+# Problem Introduction {.center-slide}
 
-Research Questions
-How do transaction volume and revenue differ between UK and international markets?
-Are there international markets with strong growth potential?
-What operational challenges may limit international expansion?
+## Research Questions 
+- How do transaction volume and revenue differ between UK and international markets? 
+- Are there international markets with strong growth potential? 
+- What operational challenges may limit international expansion?
 
-Why It Matters
-Supports strategic growth decisions
-Identifies high-value customer segments
-Highlights operational risks affecting profitability
-
+## Why It Matters 
+- Supports strategic growth decisions 
+- Identifies high-value customer segments 
+- Highlights operational risks affecting profitability
 
 ## Dataset Overview
 
 | Attribute | Description |
-|------------|------------|
+|------------------------------------|------------------------------------|
 | Source | Kaggle Retail Transactions Dataset |
 | Period | Dec 2018 – Dec 2019 |
 | Raw Dataset | 536,350 observations, 8 variables |
 | Final Dataset | 531,150 observations, 13 variables |
 | Key Variables | Transaction No., Product, Quantity, Price, Country, Date, Revenue |
 
+# Methodology  {.center}
 
-# Methodology
+## Steps Taken
 
-| Stage               | Actions                                                              |
-| ------------------- | -------------------------------------------------------------------- |
-| Data Cleaning       | Standardised variable names and removed duplicate records            |
-| Feature Engineering | Created revenue, date components and transaction type variables      |
-| Market Segmentation | Categorised transactions into UK and Non-UK markets                  |
-| Analysis            | Examined revenue, transaction volume, basket value and cancellations |
-
+| Stage | Actions |
+|------------------|------------------------------------------------------|
+| Data Cleaning | Standardised variable names and removed duplicate records |
+| Feature Engineering | Created revenue, date components and transaction type variables |
+| Market Segmentation | Categorised transactions into UK and Non-UK markets |
+| Analysis | Examined revenue, transaction volume, basket value and cancellations |
 
 # Results: UK vs International Performance
-(add image here : Results: UK vs International Performance)
-Key findings:
 
-UK generated most transactions and revenue.
-Strong growth from September onwards.
-Peak performance in November 2019.
-International markets followed similar seasonal trends.
+(add image here : Results: UK vs International Performance) Key findings:
+
+UK generated most transactions and revenue. Strong growth from September onwards. Peak performance in November 2019. International markets followed similar seasonal trends.
 
 # Results: Seasonal Trends
 
-Highest revenue in October–November.
-Holiday season drives performance.
-December likely incomplete in dataset.
-Business is highly seasonal.
+Highest revenue in October–November. Holiday season drives performance. December likely incomplete in dataset. Business is highly seasonal.
 
 # Results: High-Value International Markets
 
-- These countries generated exceptionally high basket values despite relatively low transaction volumes.
-- This purchasing pattern is consistent with wholesale or business-to-business (B2B) customers.
-- These markets represent potential opportunities for future international growth.
+-   These countries generated exceptionally high basket values despite relatively low transaction volumes.
+-   This purchasing pattern is consistent with wholesale or business-to-business (B2B) customers.
+-   These markets represent potential opportunities for future international growth.
 
 ## Results: Cancellation Analysis
 
@@ -72,22 +70,20 @@ Business is highly seasonal.
 
 ### Key Findings
 
-- The United States recorded the highest cancellation rate at approximately 29.6%.
-- Malta and Japan also exhibited elevated cancellation rates of approximately 9.4% and 9.2% respectively.
-- In comparison, the United Kingdom maintained a relatively low cancellation rate of around 1.5%.
+-   The United States recorded the highest cancellation rate at approximately 29.6%.
 
-- Cancellation rates are substantially higher in several international markets than in the UK.
-- This suggests potential challenges in international order fulfilment, logistics, or customer demand management.
-- Further investigation into the causes of cancellations is recommended before expanding operations in these markets.
+-   Malta and Japan also exhibited elevated cancellation rates of approximately 9.4% and 9.2% respectively.
+
+-   In comparison, the United Kingdom maintained a relatively low cancellation rate of around 1.5%.
+
+-   Cancellation rates are substantially higher in several international markets than in the UK.
+
+-   This suggests potential challenges in international order fulfilment, logistics, or customer demand management.
+
+-   Further investigation into the causes of cancellations is recommended before expanding operations in these markets.
 
 # Conclusions & Recommendations
-Conclusion
-UK remains dominant market.
-International markets provide growth opportunities.
-Some countries show strong B2B potential.
-Operational issues must be addressed before expansion.
 
-Recommendations
-Reduce seasonal dependency.
-Develop dedicated B2B program.
-Improve international fulfilment processes.
+Conclusion UK remains dominant market. International markets provide growth opportunities. Some countries show strong B2B potential. Operational issues must be addressed before expansion.
+
+Recommendations Reduce seasonal dependency. Develop dedicated B2B program. Improve international fulfilment processes.
