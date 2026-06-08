@@ -117,11 +117,71 @@ Following these steps, the final prepared dataset consists of **531,150 observat
 
 ### Analysing Sales Trends over Time
 
-In order to identify trends in both number of transactions and total revenue for the UK and non-UK markets, all transactions in the dataset were first assigned one of these two regions. This allowed for the creation of @fig-overview, a collection of time-series plots for transactions and revenue divided by region.
+In order to identify trends in both number of transactions and total revenue for the UK and non-UK markets, all transactions in the dataset were first assigned one of these two regions. @tbl-overview is a look at some of the summary statistics for both regions.
 
-These plots allow for the easy visual identification of market trends across the 13-month period we have data for.
+```{r}
+#| tbl-cap: "Monthly Transaction and Revenue in UK vs non-UK countries in 2018-2019 period"
+#| label: tbl-overview
+
+overview_table <- sales_with_region |> 
+  group_by(year_month, region) |>
+  summarise(
+    Transactions = n_distinct(transaction_no),
+    Revenue = sum(revenue, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  group_by(region) |>
+  summarise(
+    `Total Transactions`      = sum(Transactions),
+    `Mean Transactions/Month` = round(mean(Transactions), 0),
+    `Min Transactions/Month`  = min(Transactions),
+    `Max Transactions/Month`  = max(Transactions),
+    `Total Revenue (£)`       = round(sum(Revenue), 2),
+    `Mean Revenue/Month (£)`  = round(mean(Revenue), 2),
+    `Min Revenue/Month (£)`   = round(min(Revenue), 2),
+    `Max Revenue/Month (£)`   = round(max(Revenue), 2),
+    .groups = "drop"
+  ) |>
+  tidyr::pivot_longer(
+    cols = -region,
+    names_to = "Metric",
+    values_to = "Value"
+  ) |>
+  tidyr::pivot_wider(
+    names_from = region,
+    values_from = Value
+  ) |> 
+  mutate(
+    across(
+      -Metric,
+      ~ ifelse(
+        grepl("Revenue", Metric),
+        format(round(.x, 2), big.mark = ",", nsmall = 2),
+        format(round(.x, 0), big.mark = ",", nsmall = 0)
+      )
+    )
+  )
+
+overview_table |>
+  kable(
+    align   = c("l", rep("r", 8))
+  ) |>
+  kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed", "bordered"),
+    full_width        = FALSE,
+    position          = "center",
+    font_size         = 13
+  ) |>
+  add_header_above(
+    c(" " = 1,
+      "Region" = 2)
+  ) |>
+  row_spec(0, bold = TRUE, background = "#4C72B0", color = "white") |>
+  column_spec(1, bold = TRUE)
+```
 
 
+@fig-overview allows for the easy visual identification of market trends across the 13-month period we have data for.
 
 ```{r data-cleaning}
 
@@ -260,75 +320,6 @@ country_summary_plot <- country_summary |>
 ggsave(country_summary_plot, filename = "media/country_summary_plot.png")
 
 country_summary_plot
-```
-
-### General Quantitative metrics
-
-As seen in @fig-overview, both the UK and Non-UK markets reached their peak transaction volumes and revenue towards the end of 2019. Referencing @tbl-overview, the UK reached 2487 transactions and £6.81M in revenue in November 2019, while Non-UK countries peaked at 266 transactions in the same month. This Q4 surge is consistent with seasonal holidays like Christmas and New Year.
-
-Notably, Non-UK maximum revenue occurred in October 2019 (£1.37M) rather than November despite November having more transactions, suggesting a higher average basket value per order in October.
-
-An artefact of the data is that the minimum values for both regions fall in December 2019 across all metrics; this is not a finished month in the dataset.
-
-```{r}
-#| tbl-cap: "Monthly Transaction and Revenue in UK vs non-UK countries in 2018-2019 period"
-#| label: tbl-overview
-
-overview_table <- sales_with_region |> 
-  group_by(year_month, region) |>
-  summarise(
-    Transactions = n_distinct(transaction_no),
-    Revenue = sum(revenue, na.rm = TRUE),
-    .groups = "drop"
-  ) |>
-  group_by(region) |>
-  summarise(
-    `Total Transactions`      = sum(Transactions),
-    `Mean Transactions/Month` = round(mean(Transactions), 0),
-    `Min Transactions/Month`  = min(Transactions),
-    `Max Transactions/Month`  = max(Transactions),
-    `Total Revenue (£)`       = round(sum(Revenue), 2),
-    `Mean Revenue/Month (£)`  = round(mean(Revenue), 2),
-    `Min Revenue/Month (£)`   = round(min(Revenue), 2),
-    `Max Revenue/Month (£)`   = round(max(Revenue), 2),
-    .groups = "drop"
-  ) |>
-  tidyr::pivot_longer(
-    cols = -region,
-    names_to = "Metric",
-    values_to = "Value"
-  ) |>
-  tidyr::pivot_wider(
-    names_from = region,
-    values_from = Value
-  ) |> 
-  mutate(
-    across(
-      -Metric,
-      ~ ifelse(
-        grepl("Revenue", Metric),
-        format(round(.x, 2), big.mark = ",", nsmall = 2),
-        format(round(.x, 0), big.mark = ",", nsmall = 0)
-      )
-    )
-  )
-
-overview_table |>
-  kable(
-    align   = c("l", rep("r", 8))
-  ) |>
-  kable_styling(
-    bootstrap_options = c("striped", "hover", "condensed", "bordered"),
-    full_width        = FALSE,
-    position          = "center",
-    font_size         = 13
-  ) |>
-  add_header_above(
-    c(" " = 1,
-      "Region" = 2)
-  ) |>
-  row_spec(0, bold = TRUE, background = "#4C72B0", color = "white") |>
-  column_spec(1, bold = TRUE)
 ```
 
 
