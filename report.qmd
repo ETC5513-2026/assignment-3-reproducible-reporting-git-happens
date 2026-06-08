@@ -146,7 +146,7 @@ monthly_long <- sales_with_region |>
     values_to = "value"
   )
 
-ggplot(monthly_long, aes(x = year_month, y = value, fill = region)) +
+monthly_uk_nonuk <- ggplot(monthly_long, aes(x = year_month, y = value, fill = region)) +
   geom_col(alpha = 0.8) +
   facet_grid(metric ~ region, scales = "free_y") +
   scale_x_date(date_labels = "%b\n%y", date_breaks = "1 month") +
@@ -168,6 +168,9 @@ ggplot(monthly_long, aes(x = year_month, y = value, fill = region)) +
     plot.subtitle    = element_text(colour = "grey40", size = 10)
   )
 
+ggsave(monthly_uk_nonuk, filename = "media/monthly_uk_nonuk.png")
+
+monthly_uk_nonuk
 ```
 
 ## Results
@@ -290,7 +293,7 @@ country_summary <- sales_clean |>
     values_to = "Value"
   )
 
-country_summary |>
+country_summary_plot <- country_summary |>
   ggplot(aes(x = reorder(country, Value), y = Value)) +
   geom_col() +
   facet_wrap(~ Metric, scales = "free_x") +
@@ -300,6 +303,10 @@ country_summary |>
     y = NULL
   ) +
   theme_minimal()
+
+ggsave(country_summary_plot, filename = "media/country_summary_plot.png")
+
+country_summary_plot
 ```
 
 ### Countries' basket value
@@ -326,7 +333,7 @@ basket_country <- sales_clean |>
 top10 <- basket_country |> slice_max(`Mean Basket (£)`, n = 10)
 uk_row <- basket_country |> filter(Country == "United Kingdom")
 
-bind_rows(top10, uk_row) |>
+basket_size_plot <- bind_rows(top10, uk_row) |>
   distinct(Country, .keep_all = TRUE) |>
   mutate(
     Country   = fct_reorder(Country, `Mean Basket (£)`),
@@ -375,6 +382,9 @@ bind_rows(top10, uk_row) |>
     panel.grid.major.y = element_blank()
   )
 
+ggsave(basket_size_plot, filename = "media/basket_size_plot.png")
+
+basket_size_plot
 ```
 
 ### Cancelled orders insight
@@ -402,7 +412,7 @@ cancel_summary <- sales_clean |>
   rename(Country = country) |>
   select(Country, `Cancel Rate (%)`, `Revenue Lost (£K)`)
 
-cancel_summary |>
+cancel_summary_plot <- cancel_summary |>
   filter(`Cancel Rate (%)` > 0) |> 
   mutate(
     Country   = fct_reorder(Country, `Cancel Rate (%)`),
@@ -453,6 +463,9 @@ cancel_summary |>
     panel.grid.major.y = element_blank()
   )
 
+ggsave(cancel_summary_plot, filename = "media/cancel_summary_plot.png")
+
+cancel_summary_plot
 ```
 
 ## Dicussion
