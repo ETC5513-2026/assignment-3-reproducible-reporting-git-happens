@@ -221,6 +221,7 @@ country_summary_plot <- country_summary |>
   facet_wrap(~ Metric, scales = "free_x") +
   coord_flip() +
   labs(
+    title = "Revenue against Number of Transactions by Country",
     x = "Country",
     y = NULL
   ) +
@@ -298,8 +299,6 @@ overview_table |>
   ) |>
   row_spec(0, bold = TRUE, background = "#4C72B0", color = "white") |>
   column_spec(1, bold = TRUE)
-
-
 ```
 
 
