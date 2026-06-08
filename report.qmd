@@ -33,6 +33,8 @@ This report analyses the retail transaction data of a UK based e-retailer sellin
 
 
 ```{r setup}
+#| output: false
+
 renv::restore()
 
 library(tidyverse)
@@ -48,7 +50,7 @@ library(kableExtra)
 
 ### Research Design and Purpose
 
-> **Purpose**: this is to force a conflict.
+> **Purpose**: examine the sales performance of a UK-based online retail business over a 13-month period from December 2018 to December 2019.
 
 Specifically, the analysis investigates transaction volume and revenue trends over time, and evaluates whether performance differs between the United Kingdom and international markets.
 
